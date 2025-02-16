@@ -1,7 +1,6 @@
 ---
 layout: page
 title: "Cybersecurity Blog Posts by Jamie Warren Philippe"
-permalink: /cybersecurity-blog/
 ---
 
 # Cybersecurity Blog Posts by Jamie Warren Philippe
