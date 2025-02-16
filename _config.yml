@@ -1,1 +1,3 @@
-theme: minima  # You can change "minima" to other Jekyll themes
+title: "Cybersecurity Blog"
+description: "A collection of cybersecurity write-ups."
+theme: jekyll-theme-minimal # Or any theme you're using
