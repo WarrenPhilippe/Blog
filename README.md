@@ -5,9 +5,9 @@ Welcome to my collection of cybersecurity write-ups, where I explore real-world 
 ## 📌 Featured Posts:
 - **[Exploiting RD Gateway Vulnerability](./ExploitingRDGatewayVuln.md)**  
   - A deep dive into abusing Remote Desktop Gateway misconfigurations.
-- **[Exploiting SMTP Open Relays](./Exploiting%20SMTP%20Open%20Relays.md)**  
+- **[Exploiting SMTP Open Relays](./Exploiting_SMTP_Open_Relays.md)**  
   - How open SMTP relays can be abused for spam, phishing, and data exfiltration.
-- **[How to Own a Bank](./How%20to%20Own%20a%20Bank.md)**  
+- **[How to Own a Bank](./How_to_Own_a_Bank.md)**  
   - A pentesting story showcasing privilege escalation, lateral movement, and security failures.
 - **[Microsoft Exchange Client Access Server Information Disclosure](./MsExchangeInfoDisclosure.md)**  
   - Discusses an information disclosure bug in Exchange CAS revealing internal IPs.
