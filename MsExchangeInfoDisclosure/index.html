@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Ms Exchange Info Disclosure - PentestDiaries</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Ms Exchange Info Disclosure";
+        var mkdocs_page_input_path = "MsExchangeInfoDisclosure.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> PentestDiaries
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Penetration Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ExploitingRDGatewayVuln/">Exploiting RD Gateway Vulnerability</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Exploiting_SMTP_Open_Relays/">Exploiting SMTP Open Relays</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../How_to_Own_a_Bank/">How to Own a Bank</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Exploiting Vulnerabilities</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Ms Exchange Info Disclosure</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-scene-an-external-pentest-gone-too-well">The Scene: An External Pentest Gone Too Well</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-setup-iis-100-http10-and-a-misconfigured-host-header">The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-elite-exploit-aka-running-curl">The "Elite" Exploit (a.k.a. Running Curl)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#expected-response">Expected Response:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#why-this-works-exchange-iis-being-helpful">Why This Works: Exchange + IIS Being "Helpful"</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-why-should-you-care-section">The "Why Should You Care?" Section</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-fix-this-if-youre-an-admin-and-now-panicking">How to Fix This (If You’re an Admin and Now Panicking)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#final-thoughts">Final Thoughts</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../shadowIT/">Shadow IT</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../snmpGetBulk/">SNMP GetBulk</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PentestDiaries</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Exploiting Vulnerabilities</li>
+      <li class="breadcrumb-item active">Ms Exchange Info Disclosure</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <hr />
+<p>title: "Microsoft Exchange Client Access Server Information Disclosure: The "Oops, Here’s My Internal IP" Bug"
+author: "Jamie Warren Philippe"
+date: "2025-02-13"
+categories: [Cybersecurity, Disclosure, Exploits, Microsoft]
+tags: [Microsoft, Exchange, Information Attack, Disclosure, Exploitation]</p>
+<hr />
+<h1 id="microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug">Microsoft Exchange Client Access Server Information Disclosure: The "Oops, Here’s My Internal IP" Bug</h1>
+<h2 id="the-scene-an-external-pentest-gone-too-well">The Scene: An External Pentest Gone Too Well</h2>
+<p>Ah, Microsoft Exchange—the gift that keeps on giving. During an external penetration test, I stumbled upon an information disclosure bug that made recon a breeze. Instead of sweating over OSINT and pivoting through obscure DNS leaks, the Exchange Client Access Server (CAS) decided to just <em>hand me</em> its internal IP like a confused mall security guard giving out the WiFi password.</p>
+<h2 id="the-setup-iis-100-http10-and-a-misconfigured-host-header">The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header</h2>
+<p>The server was running <strong>IIS 10.0</strong>, and I found that if you send a good ol’ <strong>HTTP/1.0</strong> request while supplying an <strong>empty Host header</strong>, the response would include some juicy internal information—specifically, the private IP address of the server, neatly tucked away in the <strong>WWW-Authenticate realm header</strong>.</p>
+<h2 id="the-elite-exploit-aka-running-curl">The "Elite" Exploit (a.k.a. Running Curl)</h2>
+<p>This is one of those exploits where you don’t need a fancy zero-day or an obscure Python script. Nope, just some good old <strong>curl</strong>:</p>
+<pre class="codehilite"><code class="language-bash">curl -X GET http://target.com/owa/ -H &quot;Host:&quot; --http1.0 -i
+</code></pre>
+
+<h3 id="expected-response">Expected Response:</h3>
+<pre class="codehilite"><code class="language-http">HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Negotiate
+WWW-Authenticate: NTLM realm=&quot;192.168.1.50&quot;
+</code></pre>
+
+<p>Oh no, Exchange! You weren’t supposed to <strong>tell me that!</strong></p>
+<h2 id="why-this-works-exchange-iis-being-helpful">Why This Works: Exchange + IIS Being "Helpful"</h2>
+<p>By default, Exchange CAS servers running on <strong>IIS 10.0</strong> love to respond to authentication requests in a way that includes the internal realm. Normally, this isn’t an issue—unless, of course, someone forgot to properly configure the headers and now <strong>every unauthenticated request leaks the internal network structure</strong>.</p>
+<p>And let’s be honest: most admins are too busy fighting Outlook issues to bother with security headers.</p>
+<h2 id="the-why-should-you-care-section">The "Why Should You Care?" Section</h2>
+<p>What can an attacker do with an internal IP? Well, for starters:
+- <strong>Refine attack paths:</strong> Knowing the internal structure makes pivoting much easier.
+- <strong>Bypass some poorly configured security policies:</strong> If there's a split-tunnel VPN or weak firewall rules, this can be gold.
+- <strong>Social engineering fuel:</strong> "Oh hey, IT helpdesk? Yeah, I’m calling from 192.168.1.50, we got a problem..." <em>NGL, I lacked some inspiration on that one</em></p>
+<h2 id="how-to-fix-this-if-youre-an-admin-and-now-panicking">How to Fix This (If You’re an Admin and Now Panicking)</h2>
+<p>Luckily, this one’s an easy fix (assuming you don’t ignore it like that pile of pending updates on your test server):</p>
+<ol>
+<li><strong>Disable NTLM authentication over HTTP (force it over HTTPS)</strong></li>
+<li><strong>Set up proper response headers to avoid leaking internal details</strong></li>
+<li><strong>Use a reverse proxy or WAF to filter and block HTTP/1.0 requests</strong></li>
+<li><strong>Audit Exchange CAS configurations (because this probably isn’t the only issue)</strong></li>
+</ol>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>It’s 2025, and Microsoft Exchange is <em>still</em> finding new ways to embarrass itself. But hey, if you’re a pentester, it’s free recon with minimal effort—so thanks, Exchange, for making external engagements just a little bit easier. 🎉</p>
+<hr />
+<p><strong>Next Up:</strong> "From Directory Listing to Webshell to Domain Admin—Because Why Make It Hard?"</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../How_to_Own_a_Bank/" class="btn btn-neutral float-left" title="How to Own a Bank"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../shadowIT/" class="btn btn-neutral float-right" title="Shadow IT">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../How_to_Own_a_Bank/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../shadowIT/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

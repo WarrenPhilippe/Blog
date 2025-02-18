@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Shadow IT - PentestDiaries</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Shadow IT";
+        var mkdocs_page_input_path = "shadowIT.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> PentestDiaries
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Penetration Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../ExploitingRDGatewayVuln/">Exploiting RD Gateway Vulnerability</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Exploiting_SMTP_Open_Relays/">Exploiting SMTP Open Relays</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../How_to_Own_a_Bank/">How to Own a Bank</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Exploiting Vulnerabilities</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../MsExchangeInfoDisclosure/">Ms Exchange Info Disclosure</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Shadow IT</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-shadow-it">What is Shadow IT?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-attackers-exploit-shadow-it">How Attackers Exploit Shadow IT</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#real-world-example-shadow-it-in-action">Real-World Example: Shadow IT in Action</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-we-found">What we found:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#result">Result?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-detect-eliminate-shadow-it">How to Detect &amp; Eliminate Shadow IT</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../snmpGetBulk/">SNMP GetBulk</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">PentestDiaries</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Exploiting Vulnerabilities</li>
+      <li class="breadcrumb-item active">Shadow IT</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="shadow-it-the-hidden-risks-lurking-in-your-network">☁️ Shadow IT: The Hidden Risks Lurking in Your Network</h1>
+<h2 id="introduction"><strong>Introduction</strong></h2>
+<p>Ah, <strong>Shadow IT</strong>—the bane of every security team’s existence. You lock down everything, enforce strict policies, and yet, someone in marketing <em>still</em> decides to spin up a <strong>Dropbox account</strong> to “make collaboration easier.” Congratulations, your data is now one misconfiguration away from public exposure. 🎉</p>
+<p>Today, we’ll cover:
+1. <strong>What Shadow IT is</strong> and why it’s a nightmare.
+2. <strong>How attackers exploit it</strong> during a penetration test.
+3. <strong>A real-world example</strong> of an actual breach caused by unauthorized services.
+4. <strong>How to hunt for Shadow IT in your own network</strong> before the bad guys do.</p>
+<h2 id="what-is-shadow-it"><strong>What is Shadow IT?</strong></h2>
+<p>Shadow IT refers to <strong>unauthorized hardware, software, or cloud services</strong> used by employees without the approval (or knowledge) of the IT department. Examples include:
+- Personal <strong>Dropbox, Google Drive, or OneDrive</strong> accounts.
+- Employees running <strong>unauthorized web servers</strong> on company hardware.
+- Using <strong>third-party email services</strong> to bypass company filters.
+- Self-hosted <strong>VPNs or proxies</strong> for unrestricted internet access.</p>
+<p>🚨 <strong>Why is this a problem?</strong> 🚨
+- <strong>Data Loss &amp; Exposure</strong> – Unsecured storage can leak sensitive information.
+- <strong>No Security Patching</strong> – IT teams can’t protect what they don’t know exists.
+- <strong>Regulatory Compliance Violations</strong> – Data stored outside approved environments can get companies fined.</p>
+<h2 id="how-attackers-exploit-shadow-it"><strong>How Attackers Exploit Shadow IT</strong></h2>
+<p>From a pentester’s perspective, Shadow IT is <strong>free real estate</strong>. If an employee deploys an unauthorized system, odds are:
+1. <strong>It has weak authentication</strong> (or none at all).
+2. <strong>It’s not being monitored.</strong>
+3. <strong>It exposes internal services to the internet.</strong></p>
+<p>During a pentest, here’s what we look for:
+- <strong>Cloud storage leaks</strong>: Employees syncing company data to personal Dropbox or Google Drive accounts.
+- <strong>Unauthorized web servers</strong>: We find forgotten <strong>Jenkins, phpMyAdmin, or Nextcloud</strong> instances running on high-numbered ports.
+- <strong>Exposed development environments</strong>: Test servers often <strong>run outdated software</strong> and have <strong>default credentials.</strong></p>
+<h2 id="real-world-example-shadow-it-in-action"><strong>Real-World Example: Shadow IT in Action</strong></h2>
+<p>A <strong>financial institution</strong> we assessed had a strict <strong>no-cloud-storage policy.</strong> Except, as it turns out, that policy didn’t stop a department from using <strong>a personal OneDrive account</strong> to share sensitive Excel spreadsheets.</p>
+<h3 id="what-we-found"><strong>What we found:</strong></h3>
+<ul>
+<li>One employee used their <strong>personal email</strong> to create a <strong>OneDrive account</strong>.</li>
+<li>A script automatically synced <strong>customer data</strong> to OneDrive every night.</li>
+<li>The account had <strong>no multi-factor authentication (MFA).</strong></li>
+<li>The credentials were <strong>leaked in a previous data breach</strong> (thanks, HaveIBeenPwned).</li>
+</ul>
+<h3 id="result"><strong>Result?</strong></h3>
+<ul>
+<li>Attackers accessed <strong>customer financial records</strong> via the exposed OneDrive.</li>
+<li>The company suffered <strong>regulatory fines and legal action.</strong></li>
+</ul>
+<h2 id="how-to-detect-eliminate-shadow-it"><strong>How to Detect &amp; Eliminate Shadow IT</strong></h2>
+<p>Want to stay ahead of the game? <strong>Here’s how to hunt for rogue IT services:</strong></p>
+<p>🔍 <strong>Monitor Outbound Traffic</strong>
+- Use <strong>firewall rules</strong> to detect connections to unauthorized cloud services.
+- Look for <strong>DNS requests</strong> to file-sharing platforms.</p>
+<p>🔍 <strong>Conduct Regular Asset Discovery</strong>
+- Use <strong>nmap, Shodan, or internal scans</strong> to find unapproved services.
+- Regularly audit <strong>cloud service usage</strong> via Microsoft 365, AWS, or Google Workspace logs.</p>
+<p>🔍 <strong>Educate Employees</strong>
+- <strong>Explain why Shadow IT is risky.</strong> If users know <em>why</em> it's dangerous, they might stop doing it (wishful thinking, but still).
+- Provide <strong>approved alternatives</strong> that are <strong>secure and user-friendly.</strong></p>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>Shadow IT isn’t just a minor inconvenience—it’s a massive security risk. Unauthorized services <strong>bypass security controls</strong>, <strong>expose sensitive data</strong>, and <strong>make incident response nearly impossible.</strong></p>
+<p>Want to keep your network secure? <strong>Find and eliminate Shadow IT before attackers do.</strong> Because nothing says “I care about security” like <em>not</em> letting employees run their own rogue IT department. 😉</p>
+<hr />
+<p>💬 <strong>Thoughts? Have you encountered Shadow IT nightmares during a pentest? Drop your stories below!</strong></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../MsExchangeInfoDisclosure/" class="btn btn-neutral float-left" title="Ms Exchange Info Disclosure"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../snmpGetBulk/" class="btn btn-neutral float-right" title="SNMP GetBulk">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../MsExchangeInfoDisclosure/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../snmpGetBulk/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

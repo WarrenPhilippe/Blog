@@ -1,0 +1,16 @@
+site_name: PentestDiaries
+theme: readthedocs
+nav:
+  - Home: README.md
+  - Penetration Testing:
+      - Exploiting RD Gateway Vulnerability: ExploitingRDGatewayVuln.md
+      - Exploiting SMTP Open Relays: Exploiting_SMTP_Open_Relays.md
+      - How to Own a Bank: How_to_Own_a_Bank.md
+  - Exploiting Vulnerabilities:
+      - Ms Exchange Info Disclosure: MsExchangeInfoDisclosure.md
+      - Shadow IT: shadowIT.md
+      - SNMP GetBulk: snmpGetBulk.md
+markdown_extensions:
+  - codehilite
+  - toc
+  - admonition
