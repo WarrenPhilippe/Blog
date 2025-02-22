@@ -9,10 +9,8 @@
       
       
       
-        <link rel="prev" href="../dirEnum500/">
+        <link rel="prev" href="../snmpGetBulk/">
       
-      
-        <link rel="next" href="../shadowIT/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +18,7 @@
     
     
       
-        <title>Ms Exchange Info Disclosure - PentestDiaries</title>
+        <title>The Dark Arts of Email Spying - PentestDiaries</title>
       
     
     
@@ -70,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug" class="md-skip">
+        <a href="#tracking-user-location-from-an-email" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ms Exchange Info Disclosure
+              The Dark Arts of Email Spying
             
           </span>
         </div>
@@ -208,13 +206,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../MsExchangeInfoDisclosure/" class="md-tabs__link">
           
   
   Exploitation Techniques
@@ -228,11 +224,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../GetUserLocation/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   Tracking & Recon Techniques
@@ -435,28 +433,23 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -468,7 +461,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Exploitation Techniques
@@ -479,31 +472,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Ms Exchange Info Disclosure
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../MsExchangeInfoDisclosure/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -513,104 +485,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-scene-an-external-pentest-gone-too-well" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Scene: An External Pentest Gone Too Well
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-elite-exploit-aka-running-curl" class="md-nav__link">
-    <span class="md-ellipsis">
-      The "Elite" Exploit (a.k.a. Running Curl)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The "Elite" Exploit (a.k.a. Running Curl)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#expected-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expected Response:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-this-works-exchange-iis-being-helpful" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why This Works: Exchange + IIS Being "Helpful"
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-why-should-you-care-section" class="md-nav__link">
-    <span class="md-ellipsis">
-      The "Why Should You Care?" Section
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" class="md-nav__link">
-    <span class="md-ellipsis">
-      How to Fix This (If You’re an Admin and Now Panicking)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final Thoughts
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -671,23 +545,28 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -699,7 +578,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Tracking & Recon Techniques
@@ -710,10 +589,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../GetUserLocation/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    The Dark Arts of Email Spying
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -723,6 +623,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-by-step-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step-by-Step Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-creating-the-tracking-script-logphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Creating the Tracking Script (log.php)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-utility-functions-functionsphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Utility Functions (functions.php)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configuring-htaccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configuring .htaccess
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-setting-up-the-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Setting Up the Email
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ethical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ethical Considerations
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -762,37 +769,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-scene-an-external-pentest-gone-too-well" class="md-nav__link">
+  <a href="#introduction" class="md-nav__link">
     <span class="md-ellipsis">
-      The Scene: An External Pentest Gone Too Well
+      Introduction
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" class="md-nav__link">
+  <a href="#project-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header
+      Project Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-elite-exploit-aka-running-curl" class="md-nav__link">
+  <a href="#step-by-step-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      The "Elite" Exploit (a.k.a. Running Curl)
+      Step-by-Step Implementation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="The "Elite" Exploit (a.k.a. Running Curl)">
+    <nav class="md-nav" aria-label="Step-by-Step Implementation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#expected-response" class="md-nav__link">
+  <a href="#1-creating-the-tracking-script-logphp" class="md-nav__link">
     <span class="md-ellipsis">
-      Expected Response:
+      1. Creating the Tracking Script (log.php)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-utility-functions-functionsphp" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Utility Functions (functions.php)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configuring-htaccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configuring .htaccess
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-setting-up-the-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Setting Up the Email
     </span>
   </a>
   
@@ -804,36 +838,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-this-works-exchange-iis-being-helpful" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
-      Why This Works: Exchange + IIS Being "Helpful"
+      How It Works
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-why-should-you-care-section" class="md-nav__link">
+  <a href="#ethical-considerations" class="md-nav__link">
     <span class="md-ellipsis">
-      The "Why Should You Care?" Section
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" class="md-nav__link">
-    <span class="md-ellipsis">
-      How to Fix This (If You’re an Admin and Now Panicking)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final Thoughts
+      Ethical Considerations
     </span>
   </a>
   
@@ -855,48 +871,80 @@
 
 
 
-<hr />
-<p>title: "Microsoft Exchange Client Access Server Information Disclosure: The "Oops, Here’s My Internal IP" Bug"
-author: "Jamie Warren Philippe"
-date: "2025-02-13"
-categories: [Cybersecurity, Disclosure, Exploits, Microsoft]
-tags: [Microsoft, Exchange, Information Attack, Disclosure, Exploitation]</p>
-<hr />
-<h1 id="microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug">Microsoft Exchange Client Access Server Information Disclosure: The "Oops, Here’s My Internal IP" Bug<a class="headerlink" href="#microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug" title="Permanent link">&para;</a></h1>
-<h2 id="the-scene-an-external-pentest-gone-too-well">The Scene: An External Pentest Gone Too Well<a class="headerlink" href="#the-scene-an-external-pentest-gone-too-well" title="Permanent link">&para;</a></h2>
-<p>Ah, Microsoft Exchange—the gift that keeps on giving. During an external penetration test, I stumbled upon an information disclosure bug that made recon a breeze. Instead of sweating over OSINT and pivoting through obscure DNS leaks, the Exchange Client Access Server (CAS) decided to just <em>hand me</em> its internal IP like a confused mall security guard giving out the WiFi password.</p>
-<h2 id="the-setup-iis-100-http10-and-a-misconfigured-host-header">The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header<a class="headerlink" href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" title="Permanent link">&para;</a></h2>
-<p>The server was running <strong>IIS 10.0</strong>, and I found that if you send a good ol’ <strong>HTTP/1.0</strong> request while supplying an <strong>empty Host header</strong>, the response would include some juicy internal information—specifically, the private IP address of the server, neatly tucked away in the <strong>WWW-Authenticate realm header</strong>.</p>
-<h2 id="the-elite-exploit-aka-running-curl">The "Elite" Exploit (a.k.a. Running Curl)<a class="headerlink" href="#the-elite-exploit-aka-running-curl" title="Permanent link">&para;</a></h2>
-<p>This is one of those exploits where you don’t need a fancy zero-day or an obscure Python script. Nope, just some good old <strong>curl</strong>:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://target.com/owa/<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Host:&quot;</span><span class="w"> </span>--http1.0<span class="w"> </span>-i
-</code></pre></div>
-<h3 id="expected-response">Expected Response:<a class="headerlink" href="#expected-response" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">401</span> <span class="ne">Unauthorized</span>
-<span class="na">WWW-Authenticate</span><span class="o">:</span> <span class="l">Negotiate</span>
-<span class="na">WWW-Authenticate</span><span class="o">:</span> <span class="l">NTLM realm=&quot;192.168.1.50&quot;</span>
-</code></pre></div>
-<p>Oh no, Exchange! You weren’t supposed to <strong>tell me that!</strong></p>
-<h2 id="why-this-works-exchange-iis-being-helpful">Why This Works: Exchange + IIS Being "Helpful"<a class="headerlink" href="#why-this-works-exchange-iis-being-helpful" title="Permanent link">&para;</a></h2>
-<p>By default, Exchange CAS servers running on <strong>IIS 10.0</strong> love to respond to authentication requests in a way that includes the internal realm. Normally, this isn’t an issue—unless, of course, someone forgot to properly configure the headers and now <strong>every unauthenticated request leaks the internal network structure</strong>.</p>
-<p>And let’s be honest: most admins are too busy fighting Outlook issues to bother with security headers.</p>
-<h2 id="the-why-should-you-care-section">The "Why Should You Care?" Section<a class="headerlink" href="#the-why-should-you-care-section" title="Permanent link">&para;</a></h2>
-<p>What can an attacker do with an internal IP? Well, for starters:
-- <strong>Refine attack paths:</strong> Knowing the internal structure makes pivoting much easier.
-- <strong>Bypass some poorly configured security policies:</strong> If there's a split-tunnel VPN or weak firewall rules, this can be gold.
-- <strong>Social engineering fuel:</strong> "Oh hey, IT helpdesk? Yeah, I’m calling from 192.168.1.50, we got a problem..." <em>NGL, I lacked some inspiration on that one</em></p>
-<h2 id="how-to-fix-this-if-youre-an-admin-and-now-panicking">How to Fix This (If You’re an Admin and Now Panicking)<a class="headerlink" href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" title="Permanent link">&para;</a></h2>
-<p>Luckily, this one’s an easy fix (assuming you don’t ignore it like that pile of pending updates on your test server):</p>
+<h1 id="tracking-user-location-from-an-email">Tracking User Location from an Email<a class="headerlink" href="#tracking-user-location-from-an-email" title="Permanent link">&para;</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>In this absolutely innocent project, I’ll show you how to "gently" track someone's location using nothing more than a <em>harmless</em> broken image link embedded in an email. This perfectly ethical approach will help you <em>understand</em> how tracking mechanisms work and how your email signature can become the perfect little spy tool.</p>
+<h2 id="project-overview">Project Overview<a class="headerlink" href="#project-overview" title="Permanent link">&para;</a></h2>
+<p>This project features two super simple components (don’t worry, no one gets hurt):</p>
 <ol>
-<li><strong>Disable NTLM authentication over HTTP (force it over HTTPS)</strong></li>
-<li><strong>Set up proper response headers to avoid leaking internal details</strong></li>
-<li><strong>Use a reverse proxy or WAF to filter and block HTTP/1.0 requests</strong></li>
-<li><strong>Audit Exchange CAS configurations (because this probably isn’t the only issue)</strong></li>
+<li><strong>Tracking Mechanism</strong>: Embed a completely harmless broken image in your email signature. What could possibly go wrong? This triggers a request to a logging script on your server.</li>
+<li><strong>Email Setup</strong>: Use your trusty Proton email account to send the email because, well, Google might just get suspicious of your shenanigans and ruin the fun.</li>
 </ol>
-<h2 id="final-thoughts">Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permanent link">&para;</a></h2>
-<p>It’s 2025, and Microsoft Exchange is <em>still</em> finding new ways to embarrass itself. But hey, if you’re a pentester, it’s free recon with minimal effort—so thanks, Exchange, for making external engagements just a little bit easier. 🎉</p>
+<h2 id="step-by-step-implementation">Step-by-Step Implementation<a class="headerlink" href="#step-by-step-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="1-creating-the-tracking-script-logphp">1. Creating the Tracking Script (<code>log.php</code>)<a class="headerlink" href="#1-creating-the-tracking-script-logphp" title="Permanent link">&para;</a></h3>
+<p>First, you need a script that tracks the poor unsuspecting soul who opens your email. Here’s the PHP code to get the job done:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">include</span> <span class="s1">&#39;functions.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$browser</span> <span class="o">=</span> <span class="nx">getBrowser</span><span class="p">();</span>
+<span class="nv">$date</span>    <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">&#39;m/d/y g:i A&#39;</span><span class="p">);</span>
+<span class="nv">$ip</span>      <span class="o">=</span> <span class="nx">getIP</span><span class="p">();</span>
+<span class="nv">$referer</span> <span class="o">=</span> <span class="nx">getReferer</span><span class="p">();</span>
+<span class="nv">$logData</span> <span class="o">=</span> <span class="s2">&quot;[</span><span class="si">$date</span><span class="s2">] </span><span class="si">$browser</span><span class="s2"> | </span><span class="si">$ip</span><span class="s2"> | </span><span class="si">$referer</span><span class="s2">&quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+
+<span class="c1">// Log access to the text file, creating it if it doesn&#39;t exist</span>
+<span class="nb">file_put_contents</span><span class="p">(</span><span class="s1">&#39;logs.txt&#39;</span><span class="p">,</span> <span class="nv">$logData</span><span class="p">,</span> <span class="nx">FILE_APPEND</span><span class="p">);</span>
+
+<span class="c1">// Optionally serve a tracking image</span>
+<span class="k">echo</span> <span class="s1">&#39;&lt;img src=&quot;sig.png&quot;&gt;&#39;</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div>
+<h3 id="2-utility-functions-functionsphp">2. Utility Functions (<code>functions.php</code>)<a class="headerlink" href="#2-utility-functions-functionsphp" title="Permanent link">&para;</a></h3>
+<p>You’ll need a few handy functions to extract crucial info, like where the person is sitting and what browser they're using. Here’s how:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">getBrowser</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_USER_AGENT&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="s2">&quot;Unknown User-Agent&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">getIP</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_X_FORWARDED_FOR&#39;</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="nv">$ipList</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_X_FORWARDED_FOR&#39;</span><span class="p">]);</span>
+        <span class="k">return</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$ipList</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// Return the first IP from the list</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="s2">&quot;Unknown IP&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">getReferer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="s2">&quot;Unknown Referer&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div>
+<h3 id="3-configuring-htaccess">3. Configuring <code>.htaccess</code><a class="headerlink" href="#3-configuring-htaccess" title="Permanent link">&para;</a></h3>
+<p>Now, to make sure that things go smoothly and no one can stop you (legally), configure the <code>.htaccess</code> file to redirect requests like a pro:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">RewriteEngine</span><span class="w"> </span><span class="k">On</span>
+
+<span class="c"># Allow access to index.html only</span>
+<span class="nb">RewriteCond</span><span class="w"> </span>%{REQUEST_FILENAME}<span class="w"> </span>!index\.html$
+
+<span class="c"># Deny access to all .php files (prevent direct access)</span>
+<span class="nb">RewriteRule</span><span class="w"> </span>\.php$<span class="w"> </span>-<span class="w"> </span>[F,L]
+
+<span class="c"># Reroute index.html requests to log.php</span>
+<span class="nb">RewriteRule</span><span class="w"> </span>^index\.html$<span class="w"> </span>log.php<span class="w"> </span>[L]
+
+<span class="c"># Prevent directory listing</span>
+<span class="nb">Options</span><span class="w"> </span>-Indexes
+</code></pre></div>
+<h3 id="4-setting-up-the-email">4. Setting Up the Email<a class="headerlink" href="#4-setting-up-the-email" title="Permanent link">&para;</a></h3>
+<p>To track user activity via email (because why wouldn’t you?):
+1. <strong>Add an image to your email signature</strong> that points to the HTML file on your server. You know, so you can track your "innocent" recipients.
+2. <strong>Send the email using a Proton email account</strong> (because Google is a buzzkill and might block the fun).</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>When your recipient opens the email and, of course, loads the "harmless" broken image in the signature, a request is made to <code>log.php</code>. The script logs everything about them — their IP address, their browser details, and their browsing habits (well, at least the one time they opened your email). The data is then saved in <code>logs.txt</code>. Totally not creepy, right?</p>
+<h2 id="ethical-considerations">Ethical Considerations<a class="headerlink" href="#ethical-considerations" title="Permanent link">&para;</a></h2>
+<p>While this project is a <em>fun</em> way to explore how tracking works, let’s all be responsible human beings here. Don’t go invading privacy or violating laws, okay? This is purely for educational purposes, and we all know how that goes.</p>
 <hr />
-<p><strong>Next Up:</strong> "From Directory Listing to Webshell to Domain Admin—Because Why Make It Hard?"</p>
+<p>```</p>
 
 
 

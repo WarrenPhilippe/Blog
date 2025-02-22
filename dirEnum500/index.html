@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../dirEnum500/">
+        <link rel="prev" href="../How_to_Own_a_Bank/">
       
       
-        <link rel="next" href="../shadowIT/">
+        <link rel="next" href="../MsExchangeInfoDisclosure/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Ms Exchange Info Disclosure - PentestDiaries</title>
+        <title>The Art of Custom Exploits - PentestDiaries</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug" class="md-skip">
+        <a href="#step-2-retrieving-session-id-and-csrf-token" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Ms Exchange Info Disclosure
+              The Art of Custom Exploits
             
           </span>
         </div>
@@ -190,10 +190,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../ExploitingRDGatewayVuln/" class="md-tabs__link">
           
   
@@ -208,13 +210,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../MsExchangeInfoDisclosure/" class="md-tabs__link">
           
   
   Exploitation Techniques
@@ -301,23 +301,28 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -329,7 +334,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Penetration Testing
@@ -406,10 +411,29 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../dirEnum500/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    The Art of Custom Exploits
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -419,6 +443,60 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-retrieving-session-id-and-csrf-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Retrieving Session ID and CSRF Token
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-checking-directory-existence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Checking Directory Existence
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-bringing-it-all-together-the-main-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Bringing It All Together - The Main Function
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-the-power-of-misconfigurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion: The Power of Misconfigurations
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -435,28 +513,23 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -468,7 +541,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Exploitation Techniques
@@ -479,31 +552,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Ms Exchange Info Disclosure
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../MsExchangeInfoDisclosure/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -513,104 +565,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-scene-an-external-pentest-gone-too-well" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Scene: An External Pentest Gone Too Well
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-elite-exploit-aka-running-curl" class="md-nav__link">
-    <span class="md-ellipsis">
-      The "Elite" Exploit (a.k.a. Running Curl)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The "Elite" Exploit (a.k.a. Running Curl)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#expected-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expected Response:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-this-works-exchange-iis-being-helpful" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why This Works: Exchange + IIS Being "Helpful"
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-why-should-you-care-section" class="md-nav__link">
-    <span class="md-ellipsis">
-      The "Why Should You Care?" Section
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" class="md-nav__link">
-    <span class="md-ellipsis">
-      How to Fix This (If You’re an Admin and Now Panicking)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final Thoughts
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -752,8 +706,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -762,78 +714,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-scene-an-external-pentest-gone-too-well" class="md-nav__link">
+  <a href="#step-2-retrieving-session-id-and-csrf-token" class="md-nav__link">
     <span class="md-ellipsis">
-      The Scene: An External Pentest Gone Too Well
+      Step 2: Retrieving Session ID and CSRF Token
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" class="md-nav__link">
+  <a href="#step-3-checking-directory-existence" class="md-nav__link">
     <span class="md-ellipsis">
-      The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header
+      Step 3: Checking Directory Existence
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-elite-exploit-aka-running-curl" class="md-nav__link">
+  <a href="#step-4-bringing-it-all-together-the-main-function" class="md-nav__link">
     <span class="md-ellipsis">
-      The "Elite" Exploit (a.k.a. Running Curl)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The "Elite" Exploit (a.k.a. Running Curl)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#expected-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expected Response:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-this-works-exchange-iis-being-helpful" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why This Works: Exchange + IIS Being "Helpful"
+      Step 4: Bringing It All Together - The Main Function
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-why-should-you-care-section" class="md-nav__link">
+  <a href="#conclusion-the-power-of-misconfigurations" class="md-nav__link">
     <span class="md-ellipsis">
-      The "Why Should You Care?" Section
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" class="md-nav__link">
-    <span class="md-ellipsis">
-      How to Fix This (If You’re an Admin and Now Panicking)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final Thoughts
+      Conclusion: The Power of Misconfigurations
     </span>
   </a>
   
@@ -855,48 +765,92 @@
 
 
 
-<hr />
-<p>title: "Microsoft Exchange Client Access Server Information Disclosure: The "Oops, Here’s My Internal IP" Bug"
-author: "Jamie Warren Philippe"
-date: "2025-02-13"
-categories: [Cybersecurity, Disclosure, Exploits, Microsoft]
-tags: [Microsoft, Exchange, Information Attack, Disclosure, Exploitation]</p>
-<hr />
-<h1 id="microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug">Microsoft Exchange Client Access Server Information Disclosure: The "Oops, Here’s My Internal IP" Bug<a class="headerlink" href="#microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug" title="Permanent link">&para;</a></h1>
-<h2 id="the-scene-an-external-pentest-gone-too-well">The Scene: An External Pentest Gone Too Well<a class="headerlink" href="#the-scene-an-external-pentest-gone-too-well" title="Permanent link">&para;</a></h2>
-<p>Ah, Microsoft Exchange—the gift that keeps on giving. During an external penetration test, I stumbled upon an information disclosure bug that made recon a breeze. Instead of sweating over OSINT and pivoting through obscure DNS leaks, the Exchange Client Access Server (CAS) decided to just <em>hand me</em> its internal IP like a confused mall security guard giving out the WiFi password.</p>
-<h2 id="the-setup-iis-100-http10-and-a-misconfigured-host-header">The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header<a class="headerlink" href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" title="Permanent link">&para;</a></h2>
-<p>The server was running <strong>IIS 10.0</strong>, and I found that if you send a good ol’ <strong>HTTP/1.0</strong> request while supplying an <strong>empty Host header</strong>, the response would include some juicy internal information—specifically, the private IP address of the server, neatly tucked away in the <strong>WWW-Authenticate realm header</strong>.</p>
-<h2 id="the-elite-exploit-aka-running-curl">The "Elite" Exploit (a.k.a. Running Curl)<a class="headerlink" href="#the-elite-exploit-aka-running-curl" title="Permanent link">&para;</a></h2>
-<p>This is one of those exploits where you don’t need a fancy zero-day or an obscure Python script. Nope, just some good old <strong>curl</strong>:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://target.com/owa/<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Host:&quot;</span><span class="w"> </span>--http1.0<span class="w"> </span>-i
+  <h1>The Art of Custom Exploits</h1>
+
+<p>Here's a funny and sarcastic take on your blog post:</p>
+<p><div class="highlight"><pre><span></span><code><span class="gh"># Directory Enumeration: Unveiling Hidden Paths Through Error Message Misconfiguration</span>
+
+Ah, the sweet joy of navigating web applications—kind of like a treasure hunt, but with a lot more frustration and a few <span class="ge">*potential*</span> security issues along the way. Recently, while doing my usual routine of poking around a web app during a penetration test, I encountered an intriguing challenge. The app was so smart that it redirected all unauthorized requests to a login page, effectively locking me out of any useful paths. And as if that wasn’t enough, it had DarkTrace—a fancy, state-of-the-art IDS/IPS—lurking in the background like a digital watchdog. 
+
+But hey, I’ve been around long enough to know that even the most sophisticated defense can have its little cracks. This &quot;impenetrable&quot; login redirection? Yeah, it wasn’t nearly enough to keep me from uncovering valuable directory information. Thanks to some <span class="ge">*subtle*</span> misconfigurations in error messages, I was able to do a little detective work and expose the hidden directories. So, let&#39;s dive in!
+
+<span class="gu">## The Strategy: Harnessing POST Requests and Error Codes</span>
+
+So, this login redirect wasn’t just annoying—it was a redirection nightmare, throwing 302 status codes at me for every unauthorized request. The trick? You could just throw GET requests all day, and it would be like playing fetch with a brick wall. But guess what? I had other plans. Rather than repeatedly running into that 302 brick wall, I decided to mix things up with POST requests aimed at some known (or at least highly suspected) directory paths.
+
+The real genius here was that these POST requests would bypass the redirect and, instead, trigger lovely, juicy error codes. This way, I could get more info than I ever could with a simple GET.
+
+<span class="gu">### The HTTP Status Codes That Matter</span>
+
+Let’s break it down for the uninitiated. Here are the HTTP status codes that practically begged me to explore further:
+
+<span class="k">-</span><span class="w"> </span><span class="gs">**200 OK**</span>: A valid directory exists. Finally, success! It’s like finding the key to the treasure chest.
+<span class="k">-</span><span class="w"> </span><span class="gs">**302 Redirect**</span>: Oops! Directory doesn’t exist, but at least I’m getting redirected back to the login page. How nice of it.
+<span class="k">-</span><span class="w"> </span><span class="gs">**403 Forbidden**</span>: Oh, so the directory exists, but I’m <span class="ge">*not*</span> allowed to see it? Classic. Time to dig a little deeper.
+<span class="k">-</span><span class="w"> </span><span class="gs">**500 Internal Server Error**</span>: Triggering a 500 error means I’ve either broken something or the server is just being a drama queen. Either way, valuable intel!
+
+With this strategy locked in, I whipped up a Python script to handle all the tedious checking for me.
+
+<span class="gu">## The Code: A Closer Look</span>
+
+<span class="gu">### Step 1: Setting the Stage: Imports and Functions</span>
+
+Here’s how you begin:
+
+```python
+import requests
+import sys
+import re
 </code></pre></div>
-<h3 id="expected-response">Expected Response:<a class="headerlink" href="#expected-response" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">401</span> <span class="ne">Unauthorized</span>
-<span class="na">WWW-Authenticate</span><span class="o">:</span> <span class="l">Negotiate</span>
-<span class="na">WWW-Authenticate</span><span class="o">:</span> <span class="l">NTLM realm=&quot;192.168.1.50&quot;</span>
+- <strong>requests</strong>: Because who doesn't love making HTTP calls and pretending to be a browser?
+- <strong>sys</strong>: For handling those lovely command-line arguments we all adore.
+- <strong>re</strong>: You know, for when you need to pull out the juicy bits from raw HTML.</p>
+<h3 id="step-2-retrieving-session-id-and-csrf-token">Step 2: Retrieving Session ID and CSRF Token<a class="headerlink" href="#step-2-retrieving-session-id-and-csrf-token" title="Permanent link">&para;</a></h3>
+<p>To be fair, the first thing you need to do is grab the session ID and CSRF token, because web apps <em>love</em> that stuff for security. Here’s how it goes down:</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_session_id_and_csrf_token</span><span class="p">(</span><span class="n">base_url</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">session_id</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;JSESSIONID&#39;</span><span class="p">)</span>
+
+        <span class="n">csrf_token_match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;name=&quot;_csrf&quot; value=&quot;([^&quot;]+)&quot;&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">csrf_token</span> <span class="o">=</span> <span class="n">csrf_token_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">csrf_token_match</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">session_id</span> <span class="ow">and</span> <span class="n">csrf_token</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] Retrieved session ID: </span><span class="si">{</span><span class="n">session_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO] Retrieved CSRF token: </span><span class="si">{</span><span class="n">csrf_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">csrf_token</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Session ID or CSRF token not found.&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[ERROR] Failed to retrieve session ID and CSRF token: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div>
-<p>Oh no, Exchange! You weren’t supposed to <strong>tell me that!</strong></p>
-<h2 id="why-this-works-exchange-iis-being-helpful">Why This Works: Exchange + IIS Being "Helpful"<a class="headerlink" href="#why-this-works-exchange-iis-being-helpful" title="Permanent link">&para;</a></h2>
-<p>By default, Exchange CAS servers running on <strong>IIS 10.0</strong> love to respond to authentication requests in a way that includes the internal realm. Normally, this isn’t an issue—unless, of course, someone forgot to properly configure the headers and now <strong>every unauthenticated request leaks the internal network structure</strong>.</p>
-<p>And let’s be honest: most admins are too busy fighting Outlook issues to bother with security headers.</p>
-<h2 id="the-why-should-you-care-section">The "Why Should You Care?" Section<a class="headerlink" href="#the-why-should-you-care-section" title="Permanent link">&para;</a></h2>
-<p>What can an attacker do with an internal IP? Well, for starters:
-- <strong>Refine attack paths:</strong> Knowing the internal structure makes pivoting much easier.
-- <strong>Bypass some poorly configured security policies:</strong> If there's a split-tunnel VPN or weak firewall rules, this can be gold.
-- <strong>Social engineering fuel:</strong> "Oh hey, IT helpdesk? Yeah, I’m calling from 192.168.1.50, we got a problem..." <em>NGL, I lacked some inspiration on that one</em></p>
-<h2 id="how-to-fix-this-if-youre-an-admin-and-now-panicking">How to Fix This (If You’re an Admin and Now Panicking)<a class="headerlink" href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" title="Permanent link">&para;</a></h2>
-<p>Luckily, this one’s an easy fix (assuming you don’t ignore it like that pile of pending updates on your test server):</p>
-<ol>
-<li><strong>Disable NTLM authentication over HTTP (force it over HTTPS)</strong></li>
-<li><strong>Set up proper response headers to avoid leaking internal details</strong></li>
-<li><strong>Use a reverse proxy or WAF to filter and block HTTP/1.0 requests</strong></li>
-<li><strong>Audit Exchange CAS configurations (because this probably isn’t the only issue)</strong></li>
-</ol>
-<h2 id="final-thoughts">Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permanent link">&para;</a></h2>
-<p>It’s 2025, and Microsoft Exchange is <em>still</em> finding new ways to embarrass itself. But hey, if you’re a pentester, it’s free recon with minimal effort—so thanks, Exchange, for making external engagements just a little bit easier. 🎉</p>
+This part is like unlocking the front door with a shiny key.</p>
+<h3 id="step-3-checking-directory-existence">Step 3: Checking Directory Existence<a class="headerlink" href="#step-3-checking-directory-existence" title="Permanent link">&para;</a></h3>
+<p>Once you have your session cookie and CSRF token (because who doesn’t want to pretend to be authenticated), it’s time to check those directories. I mean, why not?</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">check_directory</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">csrf_token</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Headers mimicking a real browser</span>
+    <span class="p">}</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;username=test&amp;password=gahjkldsa&amp;_csrf=</span><span class="si">{</span><span class="n">csrf_token</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+Here we simulate a login with some fake creds. No big deal. Just testing the waters, you know?</p>
+<h3 id="step-4-bringing-it-all-together-the-main-function">Step 4: Bringing It All Together - The Main Function<a class="headerlink" href="#step-4-bringing-it-all-together-the-main-function" title="Permanent link">&para;</a></h3>
+<p>Finally, you bring it all together with the main function, which does all the dirty work and checks the directories for you:</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Usage: python3 script.py &lt;directory_file&gt;&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Read directories from the specified file and check each one</span>
+</code></pre></div>
+Don’t worry, it’s flexible. You can just throw a file with directories at it, and voilà, results.</p>
+<h2 id="conclusion-the-power-of-misconfigurations">Conclusion: The Power of Misconfigurations<a class="headerlink" href="#conclusion-the-power-of-misconfigurations" title="Permanent link">&para;</a></h2>
+<p>In the end, it's clear: even the most "secure" applications have cracks you can slip through. By exploiting some misconfigured error messages and strategically crafting requests, I was able to uncover hidden directories in a web app that thought it had all the bases covered. This isn't just about finding secret paths; it's about understanding how systems fail and how we can exploit those failures—responsibly, of course.</p>
+<p>Let this be a reminder to all of us: no matter how fancy your security system is, there's always a little misstep that could open the door to the treasure chest. And let’s be honest, there’s always more treasure to find.</p>
 <hr />
-<p><strong>Next Up:</strong> "From Directory Listing to Webshell to Domain Admin—Because Why Make It Hard?"</p>
+<p>```</p>
 
 
 
