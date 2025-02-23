@@ -1,0 +1,48 @@
+/* Global dark hacker aesthetic */
+:root {
+    --md-primary-fg-color: #50fa7b;  /* Neon green */
+    --md-accent-fg-color: #ff79c6;   /* Pink accent */
+    --md-default-bg-color: #0d0d0d;  /* Deep black background */
+    --md-default-fg-color: #f8f8f2;  /* White text */
+  }
+  
+  /* Headings with neon glow */
+  h1, h2, h3, h4, h5, h6 {
+    color: #50fa7b !important;
+    text-shadow: 0px 0px 5px #50fa7b;
+  }
+  
+  /* Code blocks with a hacking vibe */
+  code {
+    background-color: #21222c !important;
+    color: #ffb86c !important;
+    font-family: 'Fira Code', monospace;
+  }
+  
+  /* Links with a cyber glow */
+  a {
+    color: #8be9fd;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #ff79c6;
+    text-shadow: 0px 0px 5px #ff79c6;
+  }
+  
+  /* Table styling for hacker aesthetic */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid #50fa7b;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #21222c;
+    color: #50fa7b;
+  }  
