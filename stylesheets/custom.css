@@ -3,14 +3,4 @@
     height: 80px !important; /* Adjust size */
     width: auto !important;
   }
-  /* Center the navigation bar */
-.md-header__inner {
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Ensure nav links stay centered */
-  .md-header__inner .md-header__title {
-    flex-grow: 0;
-  }
     
