@@ -3,7 +3,3 @@
     height: 80px !important; /* Adjust size */
     width: auto !important;
   }
-/* Center the navigation tabs */
-.md-tabs {
-    justify-content: center;
-  }  
