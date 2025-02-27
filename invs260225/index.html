@@ -1,0 +1,1445 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../CyberSecInvestigations/">
+      
+      
+      
+      <link rel="icon" href="../Logos/2.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+    
+    
+      
+        <title>Investigating real-life smishing attempts - PentestDiaries</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto Mono";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/hacker.css">
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="lime">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#smishing-chronicles-the-mauritius-post-phishing-scam" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PentestDiaries" class="md-header__button md-logo" aria-label="PentestDiaries" data-md-component="logo">
+      
+  <img src="../Logos/1.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PentestDiaries
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Investigating real-life smishing attempts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ExploitingRDGatewayVuln/" class="md-tabs__link">
+          
+  
+  Penetration Testing
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../MsExchangeInfoDisclosure/" class="md-tabs__link">
+          
+  
+  Exploitation Techniques
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../GetUserLocation/" class="md-tabs__link">
+          
+  
+  Tracking & Recon Techniques
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../CyberSecInvestigations/" class="md-tabs__link">
+          
+  
+  CyberSecurity Investigations
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PentestDiaries" class="md-nav__button md-logo" aria-label="PentestDiaries" data-md-component="logo">
+      
+  <img src="../Logos/1.svg" alt="logo">
+
+    </a>
+    PentestDiaries
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Penetration Testing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Penetration Testing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ExploitingRDGatewayVuln/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploiting RD Gateway Vulnerability
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Exploiting_SMTP_Open_Relays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploiting SMTP Open Relays
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How_to_Own_a_Bank/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Own a Bank
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dirEnum500/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Art of Custom Exploits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Exploitation Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Exploitation Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MsExchangeInfoDisclosure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ms Exchange Info Disclosure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shadowIT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shadow IT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snmpGetBulk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SNMP GetBulk
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tracking & Recon Techniques
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tracking & Recon Techniques
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GetUserLocation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Dark Arts of Email Spying
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    CyberSecurity Investigations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            CyberSecurity Investigations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CyberSecInvestigations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cyber Security Incident investigations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Investigating real-life smishing attempts
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Investigating real-life smishing attempts
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#smishing-chronicles-the-mauritius-post-phishing-scam" class="md-nav__link">
+    <span class="md-ellipsis">
+      Smishing Chronicles: The Mauritius Post Phishing Scam
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Smishing Chronicles: The Mauritius Post Phishing Scam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-desk-of-a-cyber-sleuth" class="md-nav__link">
+    <span class="md-ellipsis">
+      From the Desk of a Cyber Sleuth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suspicious-smishing-attempt-the-initial-clues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suspicious Smishing Attempt – The Initial Clues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suspicious Smishing Attempt – The Initial Clues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Address:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-technical-analysis-lets-whois-this-thing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level 1 Technical Analysis – Let's Whois This Thing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 Technical Analysis – Let's Whois This Thing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Output:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Findings:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-technical-analysis-the-fake-website-hunt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level 2 Technical Analysis – The Fake Website Hunt
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 Technical Analysis – The Fake Website Hunt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-attempt-desktop-browser-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Attempt: Desktop Browser Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First Attempt: Desktop Browser Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Output:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-attempt-spoofing-a-mobile-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      Second Attempt: Spoofing a Mobile Browser
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Second Attempt: Spoofing a Mobile Browser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Output:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#digging-deeper-stealing-the-scam-websites-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digging Deeper: Stealing the Scam Website’s Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Digging Deeper: Stealing the Scam Website’s Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lets-analyse-the-phishing-page-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's analyse the phishing page structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wget-magic-grabbing-the-whole-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wget Magic – Grabbing the Whole Site
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-javascript-scam-script-show-me-the-money" class="md-nav__link">
+    <span class="md-ellipsis">
+      The JavaScript Scam Script – Show Me the Money
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion – Lessons Learned
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#smishing-chronicles-the-mauritius-post-phishing-scam" class="md-nav__link">
+    <span class="md-ellipsis">
+      Smishing Chronicles: The Mauritius Post Phishing Scam
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Smishing Chronicles: The Mauritius Post Phishing Scam">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-the-desk-of-a-cyber-sleuth" class="md-nav__link">
+    <span class="md-ellipsis">
+      From the Desk of a Cyber Sleuth
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suspicious-smishing-attempt-the-initial-clues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Suspicious Smishing Attempt – The Initial Clues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suspicious Smishing Attempt – The Initial Clues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      From Address:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-technical-analysis-lets-whois-this-thing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level 1 Technical Analysis – Let's Whois This Thing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 Technical Analysis – Let's Whois This Thing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Output:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Findings:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-technical-analysis-the-fake-website-hunt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Level 2 Technical Analysis – The Fake Website Hunt
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 Technical Analysis – The Fake Website Hunt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-attempt-desktop-browser-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Attempt: Desktop Browser Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First Attempt: Desktop Browser Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Output:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#second-attempt-spoofing-a-mobile-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      Second Attempt: Spoofing a Mobile Browser
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Second Attempt: Spoofing a Mobile Browser">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Output:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#digging-deeper-stealing-the-scam-websites-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Digging Deeper: Stealing the Scam Website’s Files
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Digging Deeper: Stealing the Scam Website’s Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lets-analyse-the-phishing-page-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's analyse the phishing page structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wget-magic-grabbing-the-whole-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wget Magic – Grabbing the Whole Site
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-javascript-scam-script-show-me-the-money" class="md-nav__link">
+    <span class="md-ellipsis">
+      The JavaScript Scam Script – Show Me the Money
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion – Lessons Learned
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Investigating real-life smishing attempts</h1>
+
+<h2 id="smishing-chronicles-the-mauritius-post-phishing-scam"><strong>Smishing Chronicles: The Mauritius Post Phishing Scam</strong><a class="headerlink" href="#smishing-chronicles-the-mauritius-post-phishing-scam" title="Permanent link">&para;</a></h2>
+<h3 id="from-the-desk-of-a-cyber-sleuth"><strong>From the Desk of a Cyber Sleuth</strong><a class="headerlink" href="#from-the-desk-of-a-cyber-sleuth" title="Permanent link">&para;</a></h3>
+<p>Ah, another day, another smishing attempt. This time, our friendly neighborhood scammers have tried to impersonate <strong>Mauritius Post</strong> with a message so full of red flags that even a colorblind person would be suspicious.</p>
+<h2 id="suspicious-smishing-attempt-the-initial-clues"><strong>Suspicious Smishing Attempt – The Initial Clues</strong><a class="headerlink" href="#suspicious-smishing-attempt-the-initial-clues" title="Permanent link">&para;</a></h2>
+<h3 id="from-address"><strong>From Address:</strong><a class="headerlink" href="#from-address" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>usy3edsusyeds6@aol.com
+</code></pre></div>
+Right off the bat, we have a supposedly official delivery notification from <strong>AOL</strong>. Yes, <strong>AOL</strong>, the email provider of choice… in the early 2000s. Because, you know, Mauritius Post totally ditched their actual <code>mauritiuspost.mu</code> domain and thought AOL was the way forward. <em>Sure, Jan.</em></p>
+<h3 id="the-message"><strong>The Message</strong><a class="headerlink" href="#the-message" title="Permanent link">&para;</a></h3>
+<p><img alt="Message Snippet" src="screenshots/Screenshot%202025-02-26%20at%2015.49.58.png" /></p>
+<p>A classic <strong>urgency-based social engineering</strong> move:</p>
+<blockquote>
+<p>"Your package is damaged! Quick, update your details or the mail fairy will make it disappear forever!"</p>
+</blockquote>
+<p>Panic-inducing, poorly phrased, and with an obviously suspicious <strong>typosquatted domain</strong> (<code>mauritiusspost.life</code>).</p>
+<hr />
+<h2 id="level-1-technical-analysis-lets-whois-this-thing"><strong>Level 1 Technical Analysis – Let's Whois This Thing</strong><a class="headerlink" href="#level-1-technical-analysis-lets-whois-this-thing" title="Permanent link">&para;</a></h2>
+<p>Running a WHOIS query on the domain:
+<div class="highlight"><pre><span></span><code>whois<span class="w"> </span>mauritiusspost.life
+</code></pre></div></p>
+<h4 id="command-output"><strong>Command Output:</strong><a class="headerlink" href="#command-output" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>Domain<span class="w"> </span>Name:<span class="w"> </span>mauritiusspost.life
+Registry<span class="w"> </span>Domain<span class="w"> </span>ID:<span class="w"> </span>47df6ab0031949699af4b0bc2946c715-DONUTS
+Registrar<span class="w"> </span>WHOIS<span class="w"> </span>Server:<span class="w"> </span>whois.namesilo.com
+Registrar<span class="w"> </span>URL:<span class="w"> </span>https://www.namesilo.com/
+Creation<span class="w"> </span>Date:<span class="w"> </span><span class="m">2025</span>-02-25T07:00:00Z
+Updated<span class="w"> </span>Date:<span class="w"> </span><span class="m">2025</span>-02-25T07:00:00Z
+Registrar<span class="w"> </span>Registration<span class="w"> </span>Expiration<span class="w"> </span>Date:<span class="w"> </span><span class="m">2026</span>-02-25T07:00:00Z
+Registrar:<span class="w"> </span>NameSilo,<span class="w"> </span>LLC
+Registrar<span class="w"> </span>IANA<span class="w"> </span>ID:<span class="w"> </span><span class="m">1479</span>
+Domain<span class="w"> </span>Status:<span class="w"> </span>clientTransferProhibited<span class="w"> </span>https://www.icann.org/epp#clientTransferProhibited
+Name<span class="w"> </span>Server:<span class="w"> </span>RANDY.NS.CLOUDFLARE.COM
+Name<span class="w"> </span>Server:<span class="w"> </span>SHUBHI.NS.CLOUDFLARE.COM
+</code></pre></div>
+<h4 id="key-findings"><strong>Key Findings:</strong><a class="headerlink" href="#key-findings" title="Permanent link">&para;</a></h4>
+<p>✅ <strong>Domain registered literally a day ago</strong> – Freshly baked phishing attempt!<br />
+✅ <strong>Privacy-protected WHOIS</strong> – Because why make it easy for law enforcement?<br />
+✅ <strong>Cloudflare DNS</strong> – Smart move, scammers. Makes takedown slightly harder.  </p>
+<p>This is <strong>TLD swapping</strong> + <strong>Typosquatting</strong> at its best. Instead of <code>mauritiuspost.mu</code>, they use <strong><code>mauritiusspost.life</code></strong>. Just enough to trick someone into clicking, but obvious to the trained eye.</p>
+<hr />
+<h2 id="level-2-technical-analysis-the-fake-website-hunt"><strong>Level 2 Technical Analysis – The Fake Website Hunt</strong><a class="headerlink" href="#level-2-technical-analysis-the-fake-website-hunt" title="Permanent link">&para;</a></h2>
+<h3 id="first-attempt-desktop-browser-access"><strong>First Attempt: Desktop Browser Access</strong><a class="headerlink" href="#first-attempt-desktop-browser-access" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-I<span class="w"> </span>https://mauritiusspost.life/mu
+</code></pre></div>
+<h4 id="command-output_1"><strong>Command Output:</strong><a class="headerlink" href="#command-output_1" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code>HTTP/2<span class="w"> </span><span class="m">404</span><span class="w"> </span>
+date:<span class="w"> </span>Wed,<span class="w"> </span><span class="m">26</span><span class="w"> </span>Feb<span class="w"> </span><span class="m">2025</span><span class="w"> </span><span class="m">19</span>:45:49<span class="w"> </span>GMT
+content-type:<span class="w"> </span>text/plain<span class="p">;</span><span class="w"> </span><span class="nv">charset</span><span class="o">=</span>utf-8
+server:<span class="w"> </span>cloudflare
+</code></pre></div>
+🚨 <strong>404 Not Found</strong> 🚨</p>
+<p>Huh, a <strong>404?</strong> Surely the scammers didn't set up a phishing page and then forget about it? <em>Or did they?</em></p>
+<h3 id="second-attempt-spoofing-a-mobile-browser"><strong>Second Attempt: Spoofing a Mobile Browser</strong><a class="headerlink" href="#second-attempt-spoofing-a-mobile-browser" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-A<span class="w"> </span><span class="s2">&quot;Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36&quot;</span><span class="w"> </span>-I<span class="w"> </span>https://mauritiusspost.life/mu
+</code></pre></div>
+<h4 id="command-output_2"><strong>Command Output:</strong><a class="headerlink" href="#command-output_2" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code>HTTP/2<span class="w"> </span><span class="m">200</span><span class="w"> </span>
+date:<span class="w"> </span>Wed,<span class="w"> </span><span class="m">26</span><span class="w"> </span>Feb<span class="w"> </span><span class="m">2025</span><span class="w"> </span><span class="m">19</span>:52:53<span class="w"> </span>GMT
+content-type:<span class="w"> </span>text/html<span class="p">;</span><span class="w"> </span><span class="nv">charset</span><span class="o">=</span>utf-8
+server:<span class="w"> </span>cloudflare
+</code></pre></div>
+✅ <strong>200 OK</strong> – <em>Ah-ha!</em> The phishing site is <strong>mobile-targeted</strong>. Because scammers know that most people check texts on their phones, and fewer people inspect URLs properly on mobile. Sneaky.</p>
+<hr />
+<h2 id="digging-deeper-stealing-the-scam-websites-files"><strong>Digging Deeper: Stealing the Scam Website’s Files</strong><a class="headerlink" href="#digging-deeper-stealing-the-scam-websites-files" title="Permanent link">&para;</a></h2>
+<h3 id="lets-analyse-the-phishing-page-structure"><strong>Let's analyse the phishing page structure</strong><a class="headerlink" href="#lets-analyse-the-phishing-page-structure" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>root@LakazMama:/home/renwa/Desktop/Malware_Analysis/260225_smishing#<span class="w"> </span>curl<span class="w"> </span>-A<span class="w"> </span><span class="s2">&quot;Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36&quot;</span><span class="w"> </span>https://mauritiusspost.life/mu<span class="w"> </span>-o<span class="w"> </span>phishing_page.html
+<span class="w">  </span>%<span class="w"> </span>Total<span class="w">    </span>%<span class="w"> </span>Received<span class="w"> </span>%<span class="w"> </span>Xferd<span class="w">  </span>Average<span class="w"> </span>Speed<span class="w">   </span>Time<span class="w">    </span>Time<span class="w">     </span>Time<span class="w">  </span>Current
+<span class="w">                                 </span>Dload<span class="w">  </span>Upload<span class="w">   </span>Total<span class="w">   </span>Spent<span class="w">    </span>Left<span class="w">  </span>Speed
+<span class="m">100</span><span class="w">   </span><span class="m">452</span><span class="w">    </span><span class="m">0</span><span class="w">   </span><span class="m">452</span><span class="w">    </span><span class="m">0</span><span class="w">     </span><span class="m">0</span><span class="w">    </span><span class="m">605</span><span class="w">      </span><span class="m">0</span><span class="w"> </span>--:--:--<span class="w"> </span>--:--:--<span class="w"> </span>--:--:--<span class="w">   </span><span class="m">606</span>
+root@LakazMama:/home/renwa/Desktop/Malware_Analysis/260225_smishing#
+root@LakazMama:/home/renwa/Desktop/Malware_Analysis/260225_smishing#<span class="w"> </span>ls
+phishing_page.html
+root@LakazMama:/home/renwa/Desktop/Malware_Analysis/260225_smishing#<span class="w"> </span>cat<span class="w"> </span>phishing_page.html<span class="w"> </span>
+&lt;!DOCTYPE<span class="w"> </span>html&gt;
+&lt;html<span class="w"> </span><span class="nv">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span>&gt;
+&lt;head&gt;
+<span class="w">  </span>&lt;meta<span class="w"> </span><span class="nv">charset</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span>&gt;
+<span class="w">  </span>&lt;link<span class="w"> </span><span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;icon&quot;</span><span class="w"> </span><span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/mus_post/140.png&quot;</span>&gt;
+<span class="w">  </span>&lt;meta<span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;viewport&quot;</span><span class="w"> </span><span class="nv">content</span><span class="o">=</span><span class="s2">&quot;width=device-width, initial-scale=1.0, user-scalable=no&quot;</span>&gt;
+<span class="w">  </span>&lt;title&gt;Mauritius<span class="w"> </span>Post<span class="w"> </span>Ltd,<span class="w"> </span>more<span class="w"> </span>than<span class="w"> </span>just<span class="w"> </span>letters&lt;/title&gt;
+<span class="w">  </span>&lt;script<span class="w"> </span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="w"> </span>crossorigin<span class="w"> </span><span class="nv">src</span><span class="o">=</span><span class="s2">&quot;/assets/index-cae35c69.js&quot;</span>&gt;&lt;/script&gt;
+<span class="w">  </span>&lt;link<span class="w"> </span><span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span><span class="w"> </span><span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/assets/index-8036a4cf.css&quot;</span>&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div<span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;app&quot;</span>&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+root@LakazMama:/home/renwa/Desktop/Malware_Analysis/260225_smishing#
+</code></pre></div>
+Visibly, the action is no happening in the index. Ok, then let's grab the whole website for analysis.</p>
+<h3 id="wget-magic-grabbing-the-whole-site"><strong>Wget Magic – Grabbing the Whole Site</strong><a class="headerlink" href="#wget-magic-grabbing-the-whole-site" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>wget<span class="w"> </span>-r<span class="w"> </span>--no-parent<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36&quot;</span><span class="w"> </span>-P<span class="w"> </span>phishing_site<span class="w"> </span>--adjust-extension<span class="w"> </span>https://mauritiusspost.life/mu
+</code></pre></div>
+🎉 <strong>Success! We have the full phishing site:</strong>
+<div class="highlight"><pre><span></span><code>.
+└──<span class="w"> </span>phishing_site
+<span class="w">    </span>└──<span class="w"> </span>mauritiusspost.life
+<span class="w">        </span>├──<span class="w"> </span>assets
+<span class="w">        </span>│<span class="w">   </span>├──<span class="w"> </span>index-8036a4cf.css
+<span class="w">        </span>│<span class="w">   </span>└──<span class="w"> </span>index-cae35c69.js
+<span class="w">        </span>├──<span class="w"> </span>mu.html
+<span class="w">        </span>└──<span class="w"> </span>mus_post
+<span class="w">            </span>├──<span class="w"> </span><span class="m">140</span>.png
+<span class="w">            </span>└──<span class="w"> </span>assets
+<span class="w">                </span>├──<span class="w"> </span>53ac32dcwSnsQ.png
+<span class="w">                </span>├──<span class="w"> </span>918b7dc3wSnsQ.woff2
+<span class="w">                </span>└──<span class="w"> </span>f31b8056wSnsQ.woff2
+
+<span class="m">6</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">7</span><span class="w"> </span>files
+</code></pre></div>
+The main page <code>mu.html</code> is just a <strong>loader page</strong>. The real action happens inside <code>index-cae35c69.js</code>.</p>
+<hr />
+<h2 id="the-javascript-scam-script-show-me-the-money"><strong>The JavaScript Scam Script – Show Me the Money</strong><a class="headerlink" href="#the-javascript-scam-script-show-me-the-money" title="Permanent link">&para;</a></h2>
+<p>Inside <code>index-cae35c69.js</code>, we find some <strong>juicy phishing logic</strong>:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;For redelivery&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;For redelivery, we need to charge some service fees.Your package will be re-delivered after payment&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;lump sum: &quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;lump sum: &quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Cardholder</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Cardholder&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Card Number&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Card Number&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Expire Date&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Expire Date&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Security Code&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Security Code&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Submit</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Submit&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Click here to receive another code&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Click here to receive another code&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Please confirm your identity and a one-time code will be sent&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Please confirm your identity and a one-time code will be sent to your mobile number or email address. Please enter verification code here&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;The verification code has been sent to&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;The verification code has been sent to&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Please do not click the&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Please do not click the &#39;Refresh&#39; or &#39;Back&#39; buttons as this may terminate or terminate your transaction&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Verification code error, please try again&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Verification code error, please try again&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;The session is about to expire, please complete the verification now&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;The session is about to expire, please complete the verification now&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;This card does not support this transaction, please try another card&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;This card does not support this transaction, please try another card&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Authorized bank&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Authorized bank&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Please go to the bank App to confirm the authorization&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Please go to the bank App to confirm the authorization&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Please do not close this page&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Please do not close this page&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Payment Successful&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Payment Successful!&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Thank you for your purchase. Your payment has been processed successfully&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Thank you for your purchase. Your payment has been processed successfully&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Mailing address&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Mailing address&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;street address or house number&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;street address or house number&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Apartment number&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Apartment number, room number, etc.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Safe payment&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Safe payment&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Verification code&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Verification code&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Delivery status&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Delivery status&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Your package number&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Your package number: {0}&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Failure notice of delivery&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Failure notice of delivery&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Because the delivery address is not clear, your package is not delivered&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Because the delivery address is not clear, your package is not delivered&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Your package has returned to our operation center&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Your package has returned to our operation center&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Please update your address&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Please update your address, we will ship again in {0}&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Continue</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Continue&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Next Step&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Next Step&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Update Immediately&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Update Immediately&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;Online Payment&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Online Payment&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+🔎 <strong>This script harvests:</strong>
+- Name, Address, Email, Phone Number<br />
+- Credit Card Info (Number, Expiry, CVV)<br />
+- 2FA / OTP Verification (to bypass security checks)<br />
+- Fake <strong>payment confirmation</strong> (likely rerouted to the scammer's account)</p>
+<p>A <strong>multi-stage phishing attack</strong>:
+1. <strong>Collect personal data</strong>
+2. <strong>Steal credit card details</strong>
+3. <strong>Simulate a bank verification step</strong>
+4. <strong>Profit</strong> 💰</p>
+<hr />
+<h2 id="conclusion-lessons-learned"><strong>Conclusion – Lessons Learned</strong><a class="headerlink" href="#conclusion-lessons-learned" title="Permanent link">&para;</a></h2>
+<p>🎭 <strong>Scammers are getting craftier, but we are smarter.</strong>
+- <strong>TLD Swapping + Typosquatting</strong> is still a favorite phishing trick.
+- <strong>Mobile-specific attacks</strong> are increasing.
+- <strong>Social engineering works</strong>—urgency and fake delivery scams can fool people.
+- <strong>Privacy-protected domains + Cloudflare</strong> make takedowns harder.</p>
+<p>🛡 <strong>How to Stay Safe:</strong>
+✔ Always <strong>verify the sender's email domain</strong>.<br />
+✔ Never click on links from <strong>unexpected delivery messages</strong>.<br />
+✔ If unsure, <strong>visit the official website directly</strong>.<br />
+✔ Use <strong>a password manager</strong>—it won't autofill on phishing sites.<br />
+✔ Report scams to your local cybersecurity authority.  </p>
+<hr />
+<p>📢 <strong>Final Words:</strong>
+To all scammers reading this: <strong>Nice try, but we’re always one step ahead.</strong> 😎</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.instant", "navigation.tracking", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+    
+  </body>
+</html>
