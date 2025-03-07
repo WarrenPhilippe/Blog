@@ -994,12 +994,22 @@
 </code></pre></div>
 Boom. A treasure trove of exposed files, including a <code>/phpmyadmin/</code> folder.</p>
 <div class="highlight"><pre><span></span><code>[ Pentester ]  ---&gt;  [ Web Server ]
-                     /-----------\
-                     |   index/  |
-                     |   admin/  |
-                     | *phpmyadmin/  &lt;-- Found via dirb
-                     |   images/  |
-                     \-----------/
+    /----------------------------------------------------------\
+    | xampp/
+    | ├── htdocs/             # Web root directory
+    | │   ├── index.php       # Default XAMPP homepage
+    | │   ├── dashboard/      # XAMPP dashboard files
+    | │   ├── applications.html
+    | │   ├── img/            # Images for XAMPP dashboard
+    | │   ├── webalizer/      # Webalizer logs
+    | │   ├── server-status   # Server status info
+    | ├── phpMyAdmin/         # phpMyAdmin directory &lt;------- Found using dirb
+    | │   ├── index.php       # Main entry point for phpMyAdmin
+    | │   ├── config.inc.php  # Configuration file
+    | │   ├── libraries/      # Libraries used by phpMyAdmin
+    | │   ├── themes/         # Themes for phpMyAdmin
+    | │   ├── ...
+    \-----------------------------------------------------------/
 </code></pre></div>
 <h3 id="step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise">Step 2: Oh Look, PhpMyAdmin – Let’s Try Defaults and give them a surprise!<a class="headerlink" href="#step-2-oh-look-phpmyadmin-lets-try-defaults-and-give-them-a-surprise" title="Permanent link">&para;</a></h3>
 <p>I took a gamble and tried the usual default credentials:
