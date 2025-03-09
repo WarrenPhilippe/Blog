@@ -975,6 +975,8 @@
 2. <strong>How attackers exploit it</strong> during a penetration test.
 3. <strong>A real-world example</strong> of an actual breach caused by unauthorized services.
 4. <strong>How to hunt for Shadow IT in your own network</strong> before the bad guys do.</p>
+<div class="highlight"><pre><span></span><code>[ Employee ] ---&gt; [ Unapproved Cloud Service ] ---&gt; [ Data Exposure ]
+</code></pre></div>
 <h2 id="what-is-shadow-it"><strong>What is Shadow IT?</strong><a class="headerlink" href="#what-is-shadow-it" title="Permanent link">&para;</a></h2>
 <p>Shadow IT refers to <strong>unauthorized hardware, software, or cloud services</strong> used by employees without the approval (or knowledge) of the IT department. Examples include:
 - Personal <strong>Dropbox, Google Drive, or OneDrive</strong> accounts.
@@ -982,6 +984,10 @@
 - Using <strong>third-party email services</strong> to bypass company filters.
 - Self-hosted <strong>VPNs or proxies</strong> for unrestricted internet access.</p>
 <p>🚨 <strong>Why is this a problem?</strong> 🚨
+<div class="highlight"><pre><span></span><code>[ Shadow IT ] ---&gt; [ No Security Patching ] ---&gt; [ Data Breaches ]
+              ---&gt; [ Compliance Violations ]
+              ---&gt; [ Increased Attack Surface ]
+</code></pre></div>
 - <strong>Data Loss &amp; Exposure</strong> – Unsecured storage can leak sensitive information.
 - <strong>No Security Patching</strong> – IT teams can’t protect what they don’t know exists.
 - <strong>Regulatory Compliance Violations</strong> – Data stored outside approved environments can get companies fined.</p>
@@ -990,6 +996,8 @@
 1. <strong>It has weak authentication</strong> (or none at all).
 2. <strong>It’s not being monitored.</strong>
 3. <strong>It exposes internal services to the internet.</strong></p>
+<div class="highlight"><pre><span></span><code>[ Attacker ] ---&gt; [ Unprotected Shadow IT Service ] ---&gt; [ Data Compromise ]
+</code></pre></div>
 <p>During a pentest, here’s what we look for:
 - <strong>Cloud storage leaks</strong>: Employees syncing company data to personal Dropbox or Google Drive accounts.
 - <strong>Unauthorized web servers</strong>: We find forgotten <strong>Jenkins, phpMyAdmin, or Nextcloud</strong> instances running on high-numbered ports.
@@ -997,12 +1005,12 @@
 <h2 id="real-world-example-shadow-it-in-action"><strong>Real-World Example: Shadow IT in Action</strong><a class="headerlink" href="#real-world-example-shadow-it-in-action" title="Permanent link">&para;</a></h2>
 <p>A <strong>financial institution</strong> we assessed had a strict <strong>no-cloud-storage policy.</strong> Except, as it turns out, that policy didn’t stop a department from using <strong>a personal OneDrive account</strong> to share sensitive Excel spreadsheets.</p>
 <h3 id="what-we-found"><strong>What we found:</strong><a class="headerlink" href="#what-we-found" title="Permanent link">&para;</a></h3>
-<ul>
-<li>One employee used their <strong>personal email</strong> to create a <strong>OneDrive account</strong>.</li>
-<li>A script automatically synced <strong>customer data</strong> to OneDrive every night.</li>
-<li>The account had <strong>no multi-factor authentication (MFA).</strong></li>
-<li>The credentials were <strong>leaked in a previous data breach</strong> (thanks, HaveIBeenPwned).</li>
-</ul>
+<p><div class="highlight"><pre><span></span><code>[ Employee ] ---&gt; [ Personal OneDrive ] ---&gt; [ No MFA, No Security Controls ] ---&gt; [ Exposed Customer Data ]
+</code></pre></div>
+- One employee used their <strong>personal email</strong> to create a <strong>OneDrive account</strong>.
+- A script automatically synced <strong>customer data</strong> to OneDrive every night.
+- The account had <strong>no multi-factor authentication (MFA).</strong>
+- The credentials were <strong>leaked in a previous data breach</strong> (thanks, HaveIBeenPwned).</p>
 <h3 id="result"><strong>Result?</strong><a class="headerlink" href="#result" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Attackers accessed <strong>customer financial records</strong> via the exposed OneDrive.</li>
@@ -1011,16 +1019,24 @@
 <h2 id="how-to-detect-eliminate-shadow-it"><strong>How to Detect &amp; Eliminate Shadow IT</strong><a class="headerlink" href="#how-to-detect-eliminate-shadow-it" title="Permanent link">&para;</a></h2>
 <p>Want to stay ahead of the game? <strong>Here’s how to hunt for rogue IT services:</strong></p>
 <p>🔍 <strong>Monitor Outbound Traffic</strong>
+<div class="highlight"><pre><span></span><code>[ Network Monitor ] ---&gt; [ Detect Unauthorized Cloud Access ]
+</code></pre></div>
 - Use <strong>firewall rules</strong> to detect connections to unauthorized cloud services.
 - Look for <strong>DNS requests</strong> to file-sharing platforms.</p>
 <p>🔍 <strong>Conduct Regular Asset Discovery</strong>
+<div class="highlight"><pre><span></span><code>[ IT Security Team ] ---&gt; [ Scan for Unauthorized Devices &amp; Services ]
+</code></pre></div>
 - Use <strong>nmap, Shodan, or internal scans</strong> to find unapproved services.
 - Regularly audit <strong>cloud service usage</strong> via Microsoft 365, AWS, or Google Workspace logs.</p>
 <p>🔍 <strong>Educate Employees</strong>
+<div class="highlight"><pre><span></span><code>[ Security Awareness Training ] ---&gt; [ Employees Avoid Shadow IT ]
+</code></pre></div>
 - <strong>Explain why Shadow IT is risky.</strong> If users know <em>why</em> it's dangerous, they might stop doing it (wishful thinking, but still).
 - Provide <strong>approved alternatives</strong> that are <strong>secure and user-friendly.</strong></p>
 <h2 id="conclusion"><strong>Conclusion</strong><a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>Shadow IT isn’t just a minor inconvenience—it’s a massive security risk. Unauthorized services <strong>bypass security controls</strong>, <strong>expose sensitive data</strong>, and <strong>make incident response nearly impossible.</strong></p>
+<div class="highlight"><pre><span></span><code>[ IT Team Detects Shadow IT ] ---&gt; [ Implements Controls ] ---&gt; [ Secure Environment ]
+</code></pre></div>
 <p>Want to keep your network secure? <strong>Find and eliminate Shadow IT before attackers do.</strong> Because nothing says “I care about security” like <em>not</em> letting employees run their own rogue IT department. 😉</p>
 <hr />
 <p>💬 <strong>Thoughts? Have you encountered Shadow IT nightmares during a pentest? Drop your stories below!</strong></p>

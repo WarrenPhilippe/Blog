@@ -992,10 +992,21 @@
 <li><strong>Tracking Mechanism</strong>: Embed a completely harmless broken image in your email signature. What could possibly go wrong? This triggers a request to a logging script on your server.</li>
 <li><strong>Email Setup</strong>: Use your trusty Proton email account to send the email because, well, Google might just get suspicious of your shenanigans and ruin the fun.</li>
 </ol>
+<div class="highlight"><pre><span></span><code>[ Email Sent ]
+    |
+    v
+[ Recipient Opens Email ]
+    |
+    v
+[ Tracking Image Loads ] --&gt; [ Request Sent to Server ]
+                                  |
+                                  v
+                         [ log.php Logs User Data ]
+</code></pre></div>
 <h2 id="step-by-step-implementation">Step-by-Step Implementation<a class="headerlink" href="#step-by-step-implementation" title="Permanent link">&para;</a></h2>
 <h3 id="1-creating-the-tracking-script-logphp">1. Creating the Tracking Script (<code>log.php</code>)<a class="headerlink" href="#1-creating-the-tracking-script-logphp" title="Permanent link">&para;</a></h3>
 <p>First, you need a script that tracks the poor unsuspecting soul who opens your email. Here’s the PHP code to get the job done:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<p><div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
 <span class="k">include</span> <span class="s1">&#39;functions.php&#39;</span><span class="p">;</span>
 
 <span class="nv">$browser</span> <span class="o">=</span> <span class="nx">getBrowser</span><span class="p">();</span>
@@ -1011,6 +1022,15 @@
 <span class="k">echo</span> <span class="s1">&#39;&lt;img src=&quot;sig.png&quot;&gt;&#39;</span><span class="p">;</span>
 <span class="cp">?&gt;</span>
 </code></pre></div>
+Here's what going to happen (in simple terms):
+<div class="highlight"><pre><span></span><code>[ User Opens Email ]
+    |
+    v
+[ Tracking Image Requests log.php ] --&gt; [ log.php Logs User Info ]
+                                          |
+                                          v
+                             [ logs.txt Stores IP, Browser, Referer ]
+</code></pre></div></p>
 <h3 id="2-utility-functions-functionsphp">2. Utility Functions (<code>functions.php</code>)<a class="headerlink" href="#2-utility-functions-functionsphp" title="Permanent link">&para;</a></h3>
 <p>You’ll need a few handy functions to extract crucial info, like where the person is sitting and what browser they're using. Here’s how:</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
@@ -1033,7 +1053,7 @@
 </code></pre></div>
 <h3 id="3-configuring-htaccess">3. Configuring <code>.htaccess</code><a class="headerlink" href="#3-configuring-htaccess" title="Permanent link">&para;</a></h3>
 <p>Now, to make sure that things go smoothly and no one can stop you (legally), configure the <code>.htaccess</code> file to redirect requests like a pro:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">RewriteEngine</span><span class="w"> </span><span class="k">On</span>
+<p><div class="highlight"><pre><span></span><code><span class="nb">RewriteEngine</span><span class="w"> </span><span class="k">On</span>
 
 <span class="c"># Allow access to index.html only</span>
 <span class="nb">RewriteCond</span><span class="w"> </span>%{REQUEST_FILENAME}<span class="w"> </span>!index\.html$
@@ -1047,10 +1067,27 @@
 <span class="c"># Prevent directory listing</span>
 <span class="nb">Options</span><span class="w"> </span>-Indexes
 </code></pre></div>
+In simple terms:</p>
+<div class="highlight"><pre><span></span><code>[ Email Client Loads Tracking Image ]
+    |
+    v
+[ .htaccess Redirects Request to log.php ]
+    |
+    v
+[ User Data Captured &amp; Logged ]
+</code></pre></div>
 <h3 id="4-setting-up-the-email">4. Setting Up the Email<a class="headerlink" href="#4-setting-up-the-email" title="Permanent link">&para;</a></h3>
 <p>To track user activity via email (because why wouldn’t you?):
 1. <strong>Add an image to your email signature</strong> that points to the HTML file on your server. You know, so you can track your "innocent" recipients.
 2. <strong>Send the email using a Proton email account</strong> (because Google is a buzzkill and might block the fun).</p>
+<div class="highlight"><pre><span></span><code>[ Email Sent with Tracking Image ]
+    |
+    v
+[ Recipient Opens Email ]
+    |
+    v
+[ Tracking Request Captured ] --&gt; [ Data Stored in logs.txt ]
+</code></pre></div>
 <h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>When your recipient opens the email and, of course, loads the "harmless" broken image in the signature, a request is made to <code>log.php</code>. The script logs everything about them — their IP address, their browser details, and their browsing habits (well, at least the one time they opened your email). The data is then saved in <code>logs.txt</code>. Totally not creepy, right?</p>
 <h2 id="ethical-considerations">Ethical Considerations<a class="headerlink" href="#ethical-considerations" title="Permanent link">&para;</a></h2>

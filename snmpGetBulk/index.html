@@ -632,15 +632,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#expected-outcomes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expected Outcomes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#mitigation-defense-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       Mitigation &amp; Defense Strategies
@@ -895,15 +886,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#expected-outcomes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Expected Outcomes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#mitigation-defense-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       Mitigation &amp; Defense Strategies
@@ -945,9 +927,19 @@
 2. <strong>How attackers abuse it for DDoS reflection</strong> (because of course they do).
 3. <strong>How to simulate the attack</strong> (for <em>educational purposes</em>, obviously).
 4. <strong>How to prevent your network from being an unwilling accomplice</strong> (unless you <em>want</em> to be a botnet).</p>
+<div class="highlight"><pre><span></span><code>[ Attacker ] ---&gt; [ Open SNMP Server ] ---&gt; [ Floods Target with Amplified Traffic ]
+</code></pre></div>
 <h2 id="how-snmp-getbulk-works"><strong>How SNMP 'GETBULK' Works</strong><a class="headerlink" href="#how-snmp-getbulk-works" title="Permanent link">&para;</a></h2>
 <p>SNMP is typically used for network monitoring, allowing admins to query devices for status updates. The <strong>GETBULK request</strong> is part of SNMPv2 and is meant to efficiently retrieve large amounts of data at once (because who wants to send multiple small queries?).</p>
 <p>A typical <strong>GETBULK request</strong> structure looks like this:</p>
+<div class="highlight"><pre><span></span><code>[ SNMP Manager ] ---&gt; [ SNMP Device ]
+      |                   |
+      | GETBULK Request   |
+      | ----------------&gt; |
+      |                   |
+      | &lt;---------------- |
+      | Bulk Response     |
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -986,7 +978,6 @@
 </tr>
 </tbody>
 </table>
-<p>Normally, this helps <strong>network admins</strong> get bulk data efficiently. But guess what? <strong>Attackers don’t care about efficiency—they care about bandwidth amplification.</strong></p>
 <h2 id="how-snmp-getbulk-becomes-a-ddos-amplification-tool"><strong>How SNMP 'GETBULK' Becomes a DDoS Amplification Tool</strong><a class="headerlink" href="#how-snmp-getbulk-becomes-a-ddos-amplification-tool" title="Permanent link">&para;</a></h2>
 <p>Reflection DDoS attacks work by <strong>spoofing</strong> the source IP address of requests, making a victim think they’re receiving replies from legitimate sources. SNMP <strong>GETBULK</strong> is perfect for this because:</p>
 <ul>
@@ -994,6 +985,8 @@
 <li>The device sends back a <strong>massive response</strong> to the spoofed IP (the victim).</li>
 <li>Multiply this by thousands of devices, and suddenly, the victim’s network is drowning in data.</li>
 </ul>
+<div class="highlight"><pre><span></span><code>[ Attacker ] ---&gt; [ Reflector SNMP Server ] ---&gt; [ Floods Target with Amplified Response ]
+</code></pre></div>
 <p>💡 <strong>Amplification factor:</strong> Depending on how <strong>misconfigured</strong> (or <em>helpful</em>) the SNMP device is, the response can be <strong>up to 100x the original request size.</strong> That’s <em>free bandwidth</em> for attackers and <em>bad news</em> for targets.</p>
 <h2 id="python-script-to-simulate-a-getbulk-reflection-attack"><strong>Python Script to Simulate a GETBULK Reflection Attack</strong><a class="headerlink" href="#python-script-to-simulate-a-getbulk-reflection-attack" title="Permanent link">&para;</a></h2>
 <p>Want to see it in action? Here’s a simple <strong>Python script</strong> that sends SNMP <strong>GETBULK</strong> requests to an open SNMP server while spoofing the victim’s IP. (Obviously, use responsibly.)</p>
@@ -1021,14 +1014,10 @@
 
 <span class="n">send_reflection_attack</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="expected-outcomes"><strong>Expected Outcomes</strong><a class="headerlink" href="#expected-outcomes" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>If the SNMP server replies to the victim’s IP with a huge response</strong> → You’ve confirmed a reflection vulnerability.</li>
-<li><strong>If nothing happens</strong> → The SNMP server might be properly secured (<em>shocking!</em>).</li>
-<li><strong>If you accidentally crash something</strong> → Whoops. Maybe don’t test this on production?</li>
-</ul>
 <h2 id="mitigation-defense-strategies"><strong>Mitigation &amp; Defense Strategies</strong><a class="headerlink" href="#mitigation-defense-strategies" title="Permanent link">&para;</a></h2>
 <p>Tired of being part of a botnet? Here’s how to avoid it:</p>
+<div class="highlight"><pre><span></span><code>[ Admin Fixes Configuration ] ---&gt; [ No More SNMP-Based DDoS ]
+</code></pre></div>
 <p>✅ <strong>Disable SNMP if you don’t use it.</strong> (Seriously, most people don’t even need it.)
 ✅ <strong>Restrict SNMP to internal networks.</strong> (Your printer does <em>not</em> need to talk to the entire internet.)
 ✅ <strong>Use strong SNMP community strings.</strong> (Change ‘public’ to something <em>not</em> guessable.)
