@@ -6,15 +6,13 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-      
-        <meta name="author" content="Jamie Warren Philippe">
-      
+        <meta name="description" content="A hilarious yet deeply technical exploration of how web browsers fumble memory handling and how attackers exploit buffer overflows. Featuring ASCII diagrams, exploit code, and a truckload of sarcasm.">
       
       
-        <link rel="prev" href="../dirEnum500/">
+        <meta name="author" content="PentestDiaries">
       
       
-        <link rel="next" href="../snmpGetBulk/">
+      
       
       
       <link rel="icon" href="../Logos/2.svg">
@@ -22,7 +20,7 @@
     
     
       
-        <title>Microsoft Exchange Client Access Server Information Disclosure: The < Oops, Here’s My Internal IP> Bug - PentestDiaries</title>
+        <title>How Browsers Mess Up Memory: A Deep Dive Into Buffer Overflows - PentestDiaries</title>
       
     
     
@@ -76,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug" class="md-skip">
+        <a href="#how-browsers-mess-up-memory-a-deep-dive-into-buffer-overflows" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Microsoft Exchange Client Access Server Information Disclosure: The < Oops, Here’s My Internal IP> Bug
+              How Browsers Mess Up Memory: A Deep Dive Into Buffer Overflows
             
           </span>
         </div>
@@ -213,13 +211,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../MsExchangeInfoDisclosure/" class="md-tabs__link">
           
   
   Exploitation Techniques
@@ -453,28 +449,23 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -486,7 +477,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Exploitation Techniques
@@ -497,31 +488,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Ms Exchange Info Disclosure
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../MsExchangeInfoDisclosure/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -531,104 +501,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-scene-an-external-pentest-gone-too-well" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔍 The Scene: An External Pentest Gone Too Well
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" class="md-nav__link">
-    <span class="md-ellipsis">
-      🛠️ The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-elite-exploit-aka-running-curl" class="md-nav__link">
-    <span class="md-ellipsis">
-      🎯 The "Elite" Exploit (a.k.a. Running Curl)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🎯 The "Elite" Exploit (a.k.a. Running Curl)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#expected-response" class="md-nav__link">
-    <span class="md-ellipsis">
-      📜 Expected Response:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-this-works-exchange-iis-being-helpful" class="md-nav__link">
-    <span class="md-ellipsis">
-      🧐 Why This Works: Exchange + IIS Being "Helpful"
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-why-should-you-care-section" class="md-nav__link">
-    <span class="md-ellipsis">
-      ⚠️ The "Why Should You Care?" Section
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" class="md-nav__link">
-    <span class="md-ellipsis">
-      🛡️ How to Fix This (If You’re an Admin and Now Panicking)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
-    <span class="md-ellipsis">
-      🎭 Final Thoughts
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -938,37 +810,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-scene-an-external-pentest-gone-too-well" class="md-nav__link">
+  <a href="#1-the-journey-from-get-to-oops-we-got-owned" class="md-nav__link">
     <span class="md-ellipsis">
-      🔍 The Scene: An External Pentest Gone Too Well
+      1️⃣ The Journey from GET to "Oops, We Got Owned"
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" class="md-nav__link">
+  <a href="#2-the-exact-moment-the-browser-screws-up" class="md-nav__link">
     <span class="md-ellipsis">
-      🛠️ The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header
+      2️⃣ The Exact Moment the Browser Screws Up 🔥
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-elite-exploit-aka-running-curl" class="md-nav__link">
-    <span class="md-ellipsis">
-      🎯 The "Elite" Exploit (a.k.a. Running Curl)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🎯 The "Elite" Exploit (a.k.a. Running Curl)">
+    <nav class="md-nav" aria-label="2️⃣ The Exact Moment the Browser Screws Up 🔥">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#expected-response" class="md-nav__link">
+  <a href="#boom-buffer-overflow" class="md-nav__link">
     <span class="md-ellipsis">
-      📜 Expected Response:
+      BOOM 💥: Buffer Overflow
     </span>
   </a>
   
@@ -980,38 +843,83 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-this-works-exchange-iis-being-helpful" class="md-nav__link">
+  <a href="#3-the-fun-part-exploiting-the-buffer-overflow" class="md-nav__link">
     <span class="md-ellipsis">
-      🧐 Why This Works: Exchange + IIS Being "Helpful"
+      3️⃣ The Fun Part: Exploiting the Buffer Overflow 🤡
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3️⃣ The Fun Part: Exploiting the Buffer Overflow 🤡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-exploit-code-poc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐍 Python Exploit Code (PoC)
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#the-why-should-you-care-section" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#what-happens-when-this-loads" class="md-nav__link">
     <span class="md-ellipsis">
-      ⚠️ The "Why Should You Care?" Section
+      What Happens When This Loads? 🚑
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" class="md-nav__link">
-    <span class="md-ellipsis">
-      🛡️ How to Fix This (If You’re an Admin and Now Panicking)
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-thoughts" class="md-nav__link">
+  <a href="#4-browser-protections-and-how-hackers-bypass-them" class="md-nav__link">
     <span class="md-ellipsis">
-      🎭 Final Thoughts
+      4️⃣ Browser Protections (And How Hackers Bypass Them)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="4️⃣ Browser Protections (And How Hackers Bypass Them)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-chrome-cve-2021-30551" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Chrome CVE-2021-30551 🚨
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conclusion-the-browser-is-a-hot-mess" class="md-nav__link">
+    <span class="md-ellipsis">
+      5️⃣ Conclusion: The Browser Is A Hot Mess
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5️⃣ Conclusion: The Browser Is A Hot Mess">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pro-tip-want-to-test-your-browser-open-your-console-and-try-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Pro Tip: Want to test your browser? Open your console and try this:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1031,57 +939,143 @@
 
 
 
-<h1 id="microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug">🕵️ Microsoft Exchange Client Access Server Information Disclosure: The "Oops, Here’s My Internal IP" Bug<a class="headerlink" href="#microsoft-exchange-client-access-server-information-disclosure-the-oops-heres-my-internal-ip-bug" title="Permanent link">&para;</a></h1>
-<h2 id="the-scene-an-external-pentest-gone-too-well">🔍 The Scene: An External Pentest Gone Too Well<a class="headerlink" href="#the-scene-an-external-pentest-gone-too-well" title="Permanent link">&para;</a></h2>
-<p>Ah, Microsoft Exchange—the gift that keeps on giving. During an external penetration test, I stumbled upon an information disclosure bug that made recon a breeze. Instead of sweating over OSINT and pivoting through obscure DNS leaks, the Exchange Client Access Server (CAS) decided to just <em>hand me</em> its internal IP like a confused mall security guard giving out the WiFi password.</p>
-<div class="highlight"><pre><span></span><code>[ 🕵️ Pentester ] ---&gt; [ 🌍 Internet-Facing Exchange CAS ] ---&gt; [ 💀 Internal IP Address Leaked ]
-</code></pre></div>
-<h2 id="the-setup-iis-100-http10-and-a-misconfigured-host-header">🛠️ The Setup: IIS 10.0, HTTP/1.0, and a Misconfigured Host Header<a class="headerlink" href="#the-setup-iis-100-http10-and-a-misconfigured-host-header" title="Permanent link">&para;</a></h2>
-<p>The server was running <strong>IIS 10.0</strong>, and I found that if you send a good ol’ <strong>HTTP/1.0</strong> request while supplying an <strong>empty Host header</strong>, the response would include some juicy internal information—specifically, the private IP address of the server, neatly tucked away in the <strong>WWW-Authenticate realm header</strong>.</p>
-<div class="highlight"><pre><span></span><code>[ 🕵️ Pentester ] ---&gt; [ HTTP/1.0 Request with Empty Host ] ---&gt; [ 📡 Exchange CAS Response with Internal IP ]
-</code></pre></div>
-<h2 id="the-elite-exploit-aka-running-curl">🎯 The "Elite" Exploit (a.k.a. Running Curl)<a class="headerlink" href="#the-elite-exploit-aka-running-curl" title="Permanent link">&para;</a></h2>
-<p>This is one of those exploits where you don’t need a fancy zero-day or an obscure Python script. Nope, just some good old <strong>curl</strong>:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://target.com/owa/<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Host:&quot;</span><span class="w"> </span>--http1.0<span class="w"> </span>-i
-</code></pre></div>
-<h3 id="expected-response">📜 Expected Response:<a class="headerlink" href="#expected-response" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">401</span> <span class="ne">Unauthorized</span>
-<span class="na">WWW-Authenticate</span><span class="o">:</span> <span class="l">Negotiate</span>
-<span class="na">WWW-Authenticate</span><span class="o">:</span> <span class="l">NTLM realm=&quot;192.168.1.50&quot;</span>
-</code></pre></div>
-<p>Oh no, Exchange! You weren’t supposed to <strong>tell me that!</strong></p>
-<div class="highlight"><pre><span></span><code>[ 📡 HTTP Request Sent ] ---&gt; [ 💀 Exchange CAS Leaks Internal IP ]
-</code></pre></div>
-<h2 id="why-this-works-exchange-iis-being-helpful">🧐 Why This Works: Exchange + IIS Being "Helpful"<a class="headerlink" href="#why-this-works-exchange-iis-being-helpful" title="Permanent link">&para;</a></h2>
-<p>By default, Exchange CAS servers running on <strong>IIS 10.0</strong> love to respond to authentication requests in a way that includes the internal realm. Normally, this isn’t an issue—unless, of course, someone forgot to properly configure the headers and now <strong>every unauthenticated request leaks the internal network structure</strong>.</p>
-<div class="highlight"><pre><span></span><code>[ 🔥 Misconfigured Exchange CAS ] ---&gt; [ 🏠 Internal Network Details Leaked ]
-</code></pre></div>
-<p>And let’s be honest: most admins are too busy fighting Outlook issues to bother with security headers.</p>
-<h2 id="the-why-should-you-care-section">⚠️ The "Why Should You Care?" Section<a class="headerlink" href="#the-why-should-you-care-section" title="Permanent link">&para;</a></h2>
-<p>What can an attacker do with an internal IP? Well, for starters:</p>
-<div class="highlight"><pre><span></span><code>[ 🎯 Internal IP Found ] ---&gt; [ 🔍 Refine Attack Paths ] ---&gt; [ 🚪 Easier Pivoting ]
-                            ---&gt; [ 🔓 Security Policy Bypass ]
-                            ---&gt; [ 🎭 Social Engineering Leverage ]
-</code></pre></div>
-<ul>
-<li><strong>Refine attack paths:</strong> Knowing the internal structure makes pivoting much easier.</li>
-<li><strong>Bypass some poorly configured security policies:</strong> If there's a split-tunnel VPN or weak firewall rules, this can be gold.</li>
-<li><strong>Social engineering fuel:</strong> "Oh hey, IT helpdesk? Yeah, I’m calling from 192.168.1.50, we got a problem..." <em>NGL, I lacked some inspiration on that one</em></li>
-</ul>
-<h2 id="how-to-fix-this-if-youre-an-admin-and-now-panicking">🛡️ How to Fix This (If You’re an Admin and Now Panicking)<a class="headerlink" href="#how-to-fix-this-if-youre-an-admin-and-now-panicking" title="Permanent link">&para;</a></h2>
-<p>Luckily, this one’s an easy fix (assuming you don’t ignore it like that pile of pending updates on your test server):</p>
-<div class="highlight"><pre><span></span><code>[ 🛠️ Admin Applies Fixes ] ---&gt; [ ✅ No More IP Leaks ]
-</code></pre></div>
-<ol>
-<li><strong>Disable NTLM authentication over HTTP (force it over HTTPS)</strong></li>
-<li><strong>Set up proper response headers to avoid leaking internal details</strong></li>
-<li><strong>Use a reverse proxy or WAF to filter and block HTTP/1.0 requests</strong></li>
-<li><strong>Audit Exchange CAS configurations (because this probably isn’t the only issue)</strong></li>
-</ol>
-<h2 id="final-thoughts">🎭 Final Thoughts<a class="headerlink" href="#final-thoughts" title="Permanent link">&para;</a></h2>
-<p>It’s 2025, and Microsoft Exchange is <em>still</em> finding new ways to embarrass itself. But hey, if you’re a pentester, it’s free recon with minimal effort—so thanks, Exchange, for making external engagements just a little bit easier. 🎉</p>
+<h1 id="how-browsers-mess-up-memory-a-deep-dive-into-buffer-overflows">How Browsers Mess Up Memory: A Deep Dive Into Buffer Overflows 🚀<a class="headerlink" href="#how-browsers-mess-up-memory-a-deep-dive-into-buffer-overflows" title="Permanent link">&para;</a></h1>
+<p>Ah yes, web browsers—the magical portals to cat videos, late-night impulse buys, and of course, <strong>serious security vulnerabilities</strong>. Ever wondered how something as innocent as loading a webpage could turn into <strong>remote code execution madness</strong>? Buckle up, because today we’re diving into <strong>buffer overflows in browsers</strong>, and it’s going to be <em>beautifully ugly</em>.</p>
 <hr />
-<p><strong>🔜 Next Up:</strong> "From Directory Listing to Webshell to Domain Admin—Because Why Make It Hard?"</p>
+<h2 id="1-the-journey-from-get-to-oops-we-got-owned">1️⃣ The Journey from <code>GET</code> to "Oops, We Got Owned"<a class="headerlink" href="#1-the-journey-from-get-to-oops-we-got-owned" title="Permanent link">&para;</a></h2>
+<p>A browser’s job is simple: <strong>Make a GET request, fetch some HTML, render it beautifully</strong>. But behind the scenes, it’s juggling <strong>parsing, rendering, JavaScript execution, and CSS interpretation</strong>—all while trying not to trip over itself (spoiler: it often does).</p>
+<p>Let’s break it down step by step:</p>
+<div class="highlight"><pre><span></span><code>+-----------------------------------------------------------+
+|      Browser Makes a GET Request                         |
++-----------------------------------------------------------+
+      ↓
++-----------------------------------------------------------+
+|      Network Layer Fetches HTML                          |
++-----------------------------------------------------------+
+      ↓
++-----------------------------------------------------------+
+|      HTML Parser Converts Raw Text to DOM                |
+|      (and inevitably screws up memory management)        |
++-----------------------------------------------------------+
+      ↓
++-----------------------------------------------------------+
+|      CSSOM &amp; Render Tree Get Built                       |
+|      (where things can get *reaaaal* messy)              |
++-----------------------------------------------------------+
+      ↓
++-----------------------------------------------------------+
+|      Pixels Get Painted on Screen                        |
+|      (hopefully, unless we crash first)                  |
++-----------------------------------------------------------+
+</code></pre></div>
+<p>Each of these stages introduces <strong>opportunities for things to go horribly wrong</strong>. And when a browser mishandles memory, it’s basically <strong>handing hackers a VIP pass</strong> to execute arbitrary code.</p>
+<hr />
+<h2 id="2-the-exact-moment-the-browser-screws-up">2️⃣ The Exact Moment the Browser Screws Up 🔥<a class="headerlink" href="#2-the-exact-moment-the-browser-screws-up" title="Permanent link">&para;</a></h2>
+<p>Let's zoom into a <strong>specific crime scene</strong>: <strong>Buffer Overflows in the HTML Parser</strong>.  </p>
+<p>When the browser <strong>parses HTML</strong>, it tokenizes elements and builds a <strong>DOM Tree</strong>. But what happens if the input is <strong>WAY bigger</strong> than the allocated buffer?</p>
+<div class="highlight"><pre><span></span><code>+------------------------------------------------+
+|  Normal HTML Parsing                           |
++------------------------------------------------+
+|  [&lt;div&gt;Hello!&lt;/div&gt;]                           |
+|  [&lt;script&gt;Hack();&lt;/script&gt;]                   |
+|  [&lt;img src=&#39;x&#39; onerror=&#39;alert(1)&#39;&gt;]           |
++------------------------------------------------+
+</code></pre></div>
+<p>Now, let's <strong>force-feed</strong> the parser a bloated, malicious input:</p>
+<div class="highlight"><pre><span></span><code>+------------------------------------------------+
+|  Malicious Input                               |
++------------------------------------------------+
+|  [&lt;div&gt;AAAAAAAAAAAAAAA...(10,000 A&#39;s)...]      |
++------------------------------------------------+
+</code></pre></div>
+<h3 id="boom-buffer-overflow">BOOM 💥: Buffer Overflow<a class="headerlink" href="#boom-buffer-overflow" title="Permanent link">&para;</a></h3>
+<p>Since the browser <strong>wasn't expecting such a massive input</strong>, it <strong>overwrites adjacent memory</strong>. This lets an attacker:
+- <strong>Smash stack pointers</strong>
+- <strong>Hijack execution flow</strong>
+- <strong>Inject arbitrary code</strong></p>
+<hr />
+<h2 id="3-the-fun-part-exploiting-the-buffer-overflow">3️⃣ The Fun Part: Exploiting the Buffer Overflow 🤡<a class="headerlink" href="#3-the-fun-part-exploiting-the-buffer-overflow" title="Permanent link">&para;</a></h2>
+<p>Let's break the web <strong>properly</strong> with <strong>an actual exploit</strong>.</p>
+<h3 id="python-exploit-code-poc">🐍 Python Exploit Code (PoC)<a class="headerlink" href="#python-exploit-code-poc" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># Craft a maliciously large payload</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span> <span class="o">*</span> <span class="mi">10000</span>  <span class="c1"># Smashing the buffer!</span>
+
+<span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;!DOCTYPE html&gt;</span>
+<span class="s2">&lt;html&gt;</span>
+<span class="s2">&lt;head&gt;&lt;title&gt;Totally Harmless Site&lt;/title&gt;&lt;/head&gt;</span>
+<span class="s2">&lt;body&gt;</span>
+<span class="s2">  &lt;div&gt;</span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s2">&lt;/div&gt;</span>
+<span class="s2">&lt;/body&gt;</span>
+<span class="s2">&lt;/html&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Host it somewhere and serve it to the target browser</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;evil.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[+] Evil HTML file generated! Now make someone open it.&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="what-happens-when-this-loads">What Happens When This Loads? 🚑<a class="headerlink" href="#what-happens-when-this-loads" title="Permanent link">&para;</a></h3>
+<ol>
+<li>The browser <strong>allocates a buffer for the <code>&lt;div&gt;</code></strong>.</li>
+<li>The <strong>payload exceeds the buffer size</strong>, overwriting adjacent memory.</li>
+<li>If we're lucky, we can <strong>overwrite a return pointer</strong>, hijack execution, and pop a shell.</li>
+</ol>
+<p><em>Oops, did I just crash your browser?</em> 🙃</p>
+<hr />
+<h2 id="4-browser-protections-and-how-hackers-bypass-them">4️⃣ Browser Protections (And How Hackers Bypass Them)<a class="headerlink" href="#4-browser-protections-and-how-hackers-bypass-them" title="Permanent link">&para;</a></h2>
+<p>Modern browsers have <strong>several countermeasures</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Protection</th>
+<th>How It Works</th>
+<th>How Hackers Bypass It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sandboxing</strong></td>
+<td>Limits damage to one process</td>
+<td>Escape via <strong>privilege escalation</strong></td>
+</tr>
+<tr>
+<td><strong>ASLR</strong></td>
+<td>Randomizes memory addresses</td>
+<td><strong>Memory leaks help bypass</strong> it</td>
+</tr>
+<tr>
+<td><strong>Heap Protections</strong></td>
+<td>Prevents overflow into adjacent objects</td>
+<td><strong>Heap spraying tricks browsers</strong></td>
+</tr>
+<tr>
+<td><strong>JIT Hardening</strong></td>
+<td>Makes JavaScript exploitation harder</td>
+<td><strong>JIT spraying still works</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-chrome-cve-2021-30551">Example: Chrome CVE-2021-30551 🚨<a class="headerlink" href="#example-chrome-cve-2021-30551" title="Permanent link">&para;</a></h3>
+<p>This was a <strong>real-world 0-day</strong> where an attacker bypassed Chrome’s <strong>memory protections</strong>. The bug in the <strong>V8 JavaScript engine</strong> allowed out-of-bounds memory access.</p>
+<hr />
+<h2 id="5-conclusion-the-browser-is-a-hot-mess">5️⃣ Conclusion: The Browser Is A Hot Mess<a class="headerlink" href="#5-conclusion-the-browser-is-a-hot-mess" title="Permanent link">&para;</a></h2>
+<p>So, what have we learned today?
+✅ Browsers are <strong>way too complex</strong> to be bug-free.<br />
+✅ Memory corruption is <strong>still</strong> a goldmine for hackers.<br />
+✅ If you want <strong>better security</strong>, keep your browser <strong>updated AF</strong>.<br />
+✅ And finally, <strong>NEVER</strong> trust user input—because hackers love shoving absurd payloads into it.  </p>
+<h3 id="pro-tip-want-to-test-your-browser-open-your-console-and-try-this">💡 Pro Tip: Want to test your browser? Open your console and try this:<a class="headerlink" href="#pro-tip-want-to-test-your-browser-open-your-console-and-try-this" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Array</span><span class="p">(</span><span class="mf">10</span><span class="p">).</span><span class="nx">fill</span><span class="p">(</span><span class="mh">0x41</span><span class="p">);</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mf">100</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x42</span><span class="p">;</span><span class="w"> </span><span class="c1">// Whoops, buffer overflow?</span>
+</code></pre></div>
+👀 If your browser crashes… uh-oh.</p>
+<p><strong>Stay safe &amp; hack responsibly!</strong> 🔥</p>
+<hr />
+<p>📢 <strong>Like this post? Share it with your fellow pentesters!</strong> And if your browser <strong>randomly crashes while reading this</strong>, well… consider it a feature. 😎</p>
 
 
 
